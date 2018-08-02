@@ -2,6 +2,9 @@ let _singleton = Symbol();
 const COURSE_API_URL =
     'https://ms-project-java-server.herokuapp.com/api/course';
 
+const SECTION_API_URL =
+    'https://ms-project-java-server.herokuapp.com/api/course/CID/section';
+
 const STUDENT_COURSE_API_URL =
     'https://ms-project-java-server.herokuapp.com/api/course/student';
 
@@ -46,6 +49,35 @@ class CourseService {
         return fetch(COURSE_API_URL+"/"+courseId, {method: 'DELETE'});
     }
 
+    updateCourseType(courses){
+        return fetch(COURSE_API_URL+'/courseType', {
+            body: JSON.stringify(courses),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        })
+    }
+
+    updateSection(courseId, section){
+        return fetch(SECTION_API_URL.replace('CID',courseId), {
+            body: JSON.stringify(section),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT'
+        })
+    }
+
+    addSection(courseId,section){
+        return fetch(SECTION_API_URL.replace('CID',courseId), {
+            body: JSON.stringify(section),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }).then(response => {return response.json()})
+    }
 
 }
 

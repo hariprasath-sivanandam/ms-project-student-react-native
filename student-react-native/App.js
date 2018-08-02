@@ -4,6 +4,7 @@ import {List, ListItem, Button, FormInput} from 'react-native-elements';
 import Login from './src/Login/login'
 import ModuleList from './src/ModuleList'
 import SectionList from './src/SectionList'
+import SectionEdit from './src/SectionEdit'
 import LessonTabs from './src/LessonTabs'
 import Course from './src/Course'
 import {createStackNavigator} from 'react-navigation'
@@ -23,7 +24,8 @@ const App = createStackNavigator({
     Login,
     ModuleList,
     LessonTabs,
-    SectionList
+    SectionList,
+    SectionEdit
 });
 
 export default App;
