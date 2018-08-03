@@ -27,7 +27,6 @@ const CustomDrawerContentComponent = props => (
 );
 const CustomStack = createStackNavigator({
     Course,
-    Login,
     ModuleList,
     LessonTabs,
     SectionList,
@@ -51,10 +50,12 @@ const DrawerRouter = createDrawerNavigator({
             })
         },
         MyCourse: {
-            screen: CustomStack,
+            screen: MyCourse,
+            params:{courseType: "MY_COURSE"},
         },
         AllCourse: {
             screen: AllCourse,
+            params:{courseType: "ALL_COURSE"}
         },
         Profile: {
             screen: Profile,
