@@ -6,6 +6,7 @@ import { NavigationActions } from 'react-navigation';
 //     params: "my_course",
 // });
 
+const studentService = StudentService.instance;
 import PropTypes from 'prop-types';
 import {
     StyleSheet,
@@ -23,6 +24,7 @@ import { TextInput } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import StudentService from "./src/services/StudentService";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -49,14 +51,33 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
-        user1 = fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",{credentials: 'same-origin'})
-            .then((response) => {return response.json()})
-            .then((user) => {return user; console.log(user)})
-        console.log("inside profile")
-        this.state = {user: user1};
-
+        // userData = fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",
+        //     {
+        //         headers: {'Content-Type': 'application/json'},
+        //         method: 'GET',
+        //         credentials: "same-origin"
+        //     })
+        //     .then((response) => {
+        //         return response.json()
+        //     })
+        //     .then((user) => {
+        //         console.log("response");
+        //         console.log(user);
+        //         return user;
+        //     })
+        this.state={user:{}};
+        // console.log("inside profile-----");
+        // console.log(userData);
         this.selectCategory = this.selectCategory.bind(this);
         this.update = this.update.bind(this);
+        this.getUserDetails = this.getUserDetails.bind(this);
+        this.getUserDetails();
+    }
+
+    getUserDetails(){
+        studentService.getProfile().then(user =>
+            this.setState({user: user})
+        )
     }
 
     async componentDidMount() {
@@ -242,7 +263,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={firstname}
+                                        value={this.state.user.firstname}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
                                         autoCorrect={false}
@@ -279,7 +300,7 @@ export default class Profile extends Component {
                                         blurOnSubmit={true}
                                         containerStyle={{marginTop: 16, borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
                                         inputStyle={{marginLeft: 10}}
-                                        placeholder={'first name'}
+                                        placeholder={'last name'}
                                         ref={input => this.confirmationInput = input}
                                         onChangeText={lastname => this.setState({ lastname })}
                                         style={styles.input}
