@@ -1,6 +1,6 @@
 import 'es6-symbol/implement'
-import React, { Component } from 'react';
-import { NavigationActions } from 'react-navigation';
+import React, {Component} from 'react';
+import {NavigationActions} from 'react-navigation';
 // const navigateAction = NavigationActions.navigate({
 //     routeName: 'MyCourse',
 //     params: "my_course",
@@ -17,9 +17,9 @@ import {
     UIManager,
     KeyboardAvoidingView,
 } from 'react-native';
-import { Font } from 'expo';
-import { FormInput, Button } from 'react-native-elements'
-import { TextInput } from 'react-native'
+import {Font} from 'expo';
+import {FormInput, Button} from 'react-native-elements'
+import {TextInput} from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -33,7 +33,7 @@ const BG_IMAGE = require('./assets/images/bg_screen4.jpg');
 UIManager.setLayoutAnimationEnabledExperimental
 && UIManager.setLayoutAnimationEnabledExperimental(true);
 
-const TabSelector = ({ selected }) => {
+const TabSelector = ({selected}) => {
     return (
         <View style={styles.selectorContainer}>
             <View style={selected && styles.selected}/>
@@ -73,7 +73,7 @@ export default class Login extends Component {
             'light': require('./assets/fonts/Montserrat-Light.ttf'),
         });
 
-        this.setState({ fontLoaded: true });
+        this.setState({fontLoaded: true});
     }
 
     selectCategory(selectedCategory) {
@@ -89,24 +89,26 @@ export default class Login extends Component {
             username,
             password,
         } = this.state;
-        if(username.length<1 || password.length<1)
+        if (username.length < 1 || password.length < 1)
             alert("Please enter the username and password");
-        else{
-            this.setState({ isLoading: true });
+        else {
+            this.setState({isLoading: true});
             fetch("https://ms-project-java-server.herokuapp.com/api/student/login",
                 {
-                    body: JSON.stringify({"username":username, "password": password}),
-                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({"username": username, "password": password}),
+                    headers: {'Content-Type': 'application/json'},
                     method: 'POST'
                 })
-                .then((response)=> {return response.json()})
-                .then((user)=> {
-                    if(user.username!==undefined)
-                        this.props.navigation.navigate("MyCourse", {courseType: "my_course"})
+                .then((response) => {
+                    return response.json()
+                })
+                .then((user) => {
+                    if (user.username !== undefined)
+                        this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"});
                     else
                         alert("The UserName/Password is incorrect.")
-                })
-            this.setState({ isLoading: false });
+                });
+            this.setState({isLoading: false});
         }
     }
 
@@ -116,33 +118,35 @@ export default class Login extends Component {
             password,
             passwordConfirmation,
         } = this.state;
-        if(username.length<1 || password.length<1)
+        if (username.length < 1 || password.length < 1)
             alert("Please enter the username and password");
-        else if(passwordConfirmation != password)
-            alert("password does not match")
-        else{
-            this.setState({ isLoading: true });
+        else if (passwordConfirmation != password)
+            alert("password does not match");
+        else {
+            this.setState({isLoading: true});
             fetch("https://ms-project-java-server.herokuapp.com/api/student/register",
                 {
-                    body: JSON.stringify({"username":username, "password": password}),
-                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({"username": username, "password": password}),
+                    headers: {'Content-Type': 'application/json'},
                     method: 'POST'
                 })
-                .then((response)=> {return response.json()})
-                .then((user)=> {
+                .then((response) => {
+                    return response.json()
+                })
+                .then((user) => {
                     console.log(user)
-                    if(user.error ==="Conflict")
+                    if (user.error === "Conflict")
                         alert("The UserName is already taken")
-                    else if(user.username === username)
-                        this.props.navigation.navigate("MyCourse", {courseType: "my_course"})
+                    else if (user.username === username)
+                        this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"})
                     else
                         alert("Please enter valid details")
                 })
-            this.setState({ isLoading: false });
+            this.setState({isLoading: false});
         }
     }
 
-    next_page(){
+    next_page() {
         this.props.navigation.navigate('MyCourse');
     }
 
@@ -220,7 +224,7 @@ export default class Login extends Component {
                                         placeholder={'User Name'}
                                         containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
                                         onSubmitEditing={() => this.passwordInput.focus()}
-                                        onChangeText={username => this.setState({ username })}
+                                        onChangeText={username => this.setState({username})}
                                         style={styles.input}
                                     />
                                     <FormInput
@@ -271,7 +275,7 @@ export default class Login extends Component {
                                         placeholder={'Confirm password'}
                                         ref={input => this.confirmationInput = input}
                                         onSubmitEditing={this.signUp}
-                                        onChangeText={passwordConfirmation => this.setState({ passwordConfirmation })}
+                                        onChangeText={passwordConfirmation => this.setState({passwordConfirmation})}
                                         errorMessage={isConfirmationValid ? null : 'Please enter the same password'}
                                         style={styles.input}
                                     />}
@@ -356,7 +360,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingTop: 32,
         paddingBottom: 32,
-        alignItems:'center',
+        alignItems: 'center',
     },
     loginText: {
         fontSize: 16,
@@ -395,7 +399,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        fontSize:20,
+        fontSize: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
         marginBottom: 20,
         color: '#fff',

@@ -1,3 +1,5 @@
+import 'es6-symbol/implement';
+
 let _singleton = Symbol();
 const COURSE_API_URL =
     'https://ms-project-java-server.herokuapp.com/api/course';
@@ -21,15 +23,21 @@ class CourseService {
     }
 
     findCourses(courseType) {
-        if(courseType == "ALL_COURSE"){
-            return fetch(COURSE_API_URL)
+        if (courseType == "ALL_COURSE") {
+            return fetch(COURSE_API_URL, {method: "GET", credentials: "same-origin"})
                 .then(function (response) {
                     return response.json();
+                }).then(res => {
+                    return res;
                 });
         }
-        return fetch(STUDENT_COURSE_API_URL)
+        return fetch(STUDENT_COURSE_API_URL, {method: "GET", credentials: "same-origin"})
             .then(function (response) {
                 return response.json();
+            }).then(res => {
+                console.log("inside my course");
+                console.log(res);
+                return res;
             });
     }
 
@@ -46,11 +54,11 @@ class CourseService {
     }
 
     deleteCourse(courseId) {
-        return fetch(COURSE_API_URL+"/"+courseId, {method: 'DELETE'});
+        return fetch(COURSE_API_URL + "/" + courseId, {method: 'DELETE'});
     }
 
-    updateCourseType(courses){
-        return fetch(COURSE_API_URL+'/courseType', {
+    updateCourseType(courses) {
+        return fetch(COURSE_API_URL + '/courseType', {
             body: JSON.stringify(courses),
             headers: {
                 'Content-Type': 'application/json'
@@ -59,8 +67,8 @@ class CourseService {
         })
     }
 
-    updateSection(courseId, section){
-        return fetch(SECTION_API_URL.replace('CID',courseId), {
+    updateSection(courseId, section) {
+        return fetch(SECTION_API_URL.replace('CID', courseId), {
             body: JSON.stringify(section),
             headers: {
                 'Content-Type': 'application/json'
@@ -69,14 +77,16 @@ class CourseService {
         })
     }
 
-    addSection(courseId,section){
-        return fetch(SECTION_API_URL.replace('CID',courseId), {
+    addSection(courseId, section) {
+        return fetch(SECTION_API_URL.replace('CID', courseId), {
             body: JSON.stringify(section),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST'
-        }).then(response => {return response.json()})
+        }).then(response => {
+            return response.json()
+        })
     }
 
 }

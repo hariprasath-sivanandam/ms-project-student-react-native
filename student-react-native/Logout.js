@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
+import StudentService from './src/services/StudentService'
+
+const studentService = StudentService.instance;
 
 export default class Logout extends Component {
     constructor(props){
@@ -13,6 +16,9 @@ export default class Logout extends Component {
             credentials: 'include'
         })
         this.props.navigation.navigate('Login')
+    //    super(props);
+      //  studentService.logout();
+
     }
 
     render(){

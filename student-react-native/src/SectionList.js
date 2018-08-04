@@ -37,7 +37,8 @@ export default class SectionList extends Component {
             self.props.navigation.state.params.onNavigateBack();
             self.props.navigation.goBack()
         }).catch(err => {
-            alert("Error enrolling student. Login required.")
+            alert("Error enrolling student. Login required.");
+            //self.props.navigation.navigate("Login");
         })
     }
 
@@ -50,7 +51,7 @@ export default class SectionList extends Component {
             self.props.navigation.goBack()
         }).catch(err => {
             alert("Error unrolling student. Login required.")
-        })
+        });
     }
 
     sectionIsPresent(sectionId) {

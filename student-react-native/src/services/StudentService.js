@@ -1,3 +1,4 @@
+import 'es6-symbol/implement';
 
 let _singleton = Symbol();
 const STUDENT_API_URL =
@@ -19,11 +20,19 @@ class StudentService {
     }
 
     getProfile() {
-        return fetch(STUDENT_API_URL_TEST)
+        return fetch(STUDENT_API_URL)
             .then(function (response) {
                 return response.json();
             });
     }
+
+    logout(){
+        return fetch("https://ms-project-java-server.herokuapp.com/api/student/logout",{
+            method: 'POST',
+            credentials:"same-origin"
+        });
+    }
+
 }
 
 export default StudentService;

@@ -15,15 +15,30 @@ export default class Course extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {user: {}, courses: [], my_sections: [], courseType: ""};
+        let courseType = null;
+        if(this.props.screenProps && this.props.screenProps.courseType){
+            courseType =  this.props.screenProps.courseType;
+        }
+        else{
+            courseType = this.props.navigation.getParam("courseType");
+        }
+        this.state = {user: {}, courses: [], my_sections: [], courseType: courseType};
         this.loadCourses = this.loadCourses.bind(this);
     }
 
     componentDidMount() {
-        const courseType = "ALL_COURSE";
+        console.log("inside component did mount")
+        let courseType = null;
+        if(this.props.screenProps && this.props.screenProps.courseType){
+            courseType =  this.props.screenProps.courseType;
+        }
+        else{
+            courseType = this.props.navigation.getParam("courseType");
+        }
+        console.log(courseType);
         this.setState({courseType: courseType});
         this.loadCourses(courseType);
-        this.updateCourseDetails.bind(this)
+        this.updateCourseDetails.bind(this);
     }
 
     handleOnNavigateBack = () => {
@@ -31,18 +46,68 @@ export default class Course extends Component {
     };
 
     loadCourses(courseType) {
-        this.setState({courses: []});
-        sectionService.findSectionsForStudent().then(sections => this.setState({my_sections: sections})).catch(() => {
+        this.setState({courses: [], my_sections: [], user: {}});
+
+        courseService.findCourses(courseType).then(courses => {
+            console.log("courses");
+            console.log(courses);
+            this.setState({courses: courses})
+            //localCourses = courses;
+        }).catch(() => {
+            console.log("Error course service");
+            alert("Error occured. Try again.")
+        });
+        sectionService.findSectionsForStudent().then(sections => {
+            console.log("sections:");
+            console.log(sections);
+            this.setState({my_sections: sections})
+        }).catch(() => {
+            console.log("Error section service");
             alert("Error retrieving data. Login required")
         });
-        courseService.findCourses(courseType).then(courses => this.setState({courses: courses})).catch(() => {
-            alert("Error retrieving data. Login required")
-        });
+
         studentService.getProfile().then(user => {
+            console.log("user");
+            console.log(user);
             this.setState({user: user})
         }).catch(() => {
+            console.log("Error student service");
             alert("Error retrieving data. Login required")
         })
+
+        /////////////////////////////////////////////////////////////
+        // let courseData = [];
+        // let sectionData = [];
+        // let userData = {};
+        //
+        // courseService.findCourses(courseType).then(courses => {
+        //     sectionService.findSectionsForStudent().then(sections => {
+        //         studentService.getProfile().then(user => {
+        //             userData = user;
+        //         }).catch(() => {
+        //             console.log("Error student service");
+        //             alert("Error retrieving data. Login required");
+        //         });
+        //         sectionData = sections;
+        //     }).catch(() => {
+        //         console.log("Error section service");
+        //         alert("Error retrieving data. Login required");
+        //     });
+        //     courseData = courses;
+        // }).then(
+        //     () => {
+        //         console.log("courses");
+        //         console.log(courseData);
+        //         console.log("sections:");
+        //         console.log(sectionData);
+        //         console.log("user");
+        //         console.log(userData);
+        //         this.setState({courses: courseData, my_sections: sectionData, user: userData})
+        //     }).catch(() => {
+        //     console.log("Error course service");
+        //     alert("Error occurred. Try again.");
+        // });
+
     }
 
     updateCourseDetails() {
@@ -55,7 +120,7 @@ export default class Course extends Component {
             coursesInfo.push(obj)
         });
 
-        let updatedCourses = []
+        let updatedCourses = [];
         let courses = this.state.courses;
         courses.forEach(course => {
             coursesInfo.forEach(courseInfo => {
