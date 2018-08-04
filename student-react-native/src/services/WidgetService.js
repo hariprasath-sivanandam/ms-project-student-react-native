@@ -1,3 +1,5 @@
+import 'es6-symbol/implement';
+
 const WIDGET_API_URL_FULLY_QUALIFIED =
     'https://ms-project-java-server.herokuapp.com/api/lesson/LID/widget/WID';
 

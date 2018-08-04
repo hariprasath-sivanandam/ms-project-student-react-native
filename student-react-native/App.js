@@ -1,6 +1,5 @@
 import React from 'react';
 import Expo, { AppLoading, Asset, Font } from 'expo';
-//import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { View, Image, Text, Dimensions } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 

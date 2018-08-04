@@ -3,13 +3,13 @@ import 'es6-symbol/implement';
 const SECTION_API_ENROLL_URL =
     'https://ms-project-java-server.herokuapp.com/api/section/SID/enrollment';
 
-const SECTION_API_URL = 'https://ms-project-java-server.herokuapp.com/api/section/SID'
+const SECTION_API_URL = 'https://ms-project-java-server.herokuapp.com/api/student/section/SID'
 
-const SECTION_API_URL_TEST =
-    'https://ms-project-java-server.herokuapp.com/api/section/SID/enrollment/12';
-
-const MY_SECTION_API_URL_TEST =
-    'https://ms-project-java-server.herokuapp.com/api/student/section/12';
+// const SECTION_API_URL_TEST =
+//     'https://ms-project-java-server.herokuapp.com/api/section/SID/enrollment/12';
+//
+// const MY_SECTION_API_URL_TEST =
+//     'https://ms-project-java-server.herokuapp.com/api/student/section/12';
 
 let _singleton = Symbol();
 export default class SectionService {
@@ -25,7 +25,7 @@ export default class SectionService {
     }
 
     enrollStudentInSection(sectionId) {
-        return fetch(SECTION_API_URL_TEST.replace('SID', sectionId),
+        return fetch(SECTION_API_ENROLL_URL.replace('SID', sectionId),
             {method: 'POST', credentials: "same-origin"})
             .then(function (response) {
                 return response;
@@ -33,7 +33,7 @@ export default class SectionService {
     }
 
     unrollStudentInSection(sectionId) {
-        return fetch(SECTION_API_URL_TEST.replace('SID', sectionId),
+        return fetch(SECTION_API_ENROLL_URL.replace('SID', sectionId),
             {method: 'DELETE', credentials: "same-origin"})
             .then(function (response) {
                 return response;
@@ -42,7 +42,7 @@ export default class SectionService {
 
     findSectionsForStudent() {
         return fetch(
-            MY_SECTION_API_URL_TEST, {method: 'GET', credentials: "same-origin"}
+            SECTION_API_URL.replace("/SID",""), {method: 'GET', credentials: "same-origin"}
         ).then(response => {
             return response.json()
         })
