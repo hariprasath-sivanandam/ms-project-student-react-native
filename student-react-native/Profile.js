@@ -130,9 +130,6 @@ export default class Profile extends Component {
         const {
             selectedCategory,
             isLoading,
-            isEmailValid,
-            isPasswordValid,
-            isConfirmationValid,
             email,
             password,
             username,
