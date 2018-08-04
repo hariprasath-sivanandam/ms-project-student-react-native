@@ -49,22 +49,11 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            email: 'test',
-            password: '111',
-            passwordConfirmation: '111',
-            firstname:'testf',
-            lastname:'testl',
-            phone:'123321',
-            username:'testu',
-            fontLoaded: false,
-            selectedCategory: 0,
-            isLoading: false,
-            isEmailValid: true,
-            isPasswordValid: true,
-            isConfirmationValid: true,
-        };
+        user1 = fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",{credentials: 'same-origin'})
+            .then((response) => {return response.json()})
+            .then((user) => {return user; console.log(user)})
+        console.log("inside profile")
+        this.state = {user: user1};
 
         this.selectCategory = this.selectCategory.bind(this);
         this.update = this.update.bind(this);
@@ -95,6 +84,27 @@ export default class Profile extends Component {
     }
 
     update() {
+        const user= this.state.user
+        console.log(user)
+        if(!this.validateEmail(user.email))
+            alert("Please enter a valid Email")
+        else if(password.length<1)
+            alert("Please enter valid password")
+        else if(password !== passwordConfirmation)
+            alert("Password does not match")
+        else{
+            fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",
+                {
+                     body: JSON.stringify({user: user}),
+                     headers: { 'Content-Type': 'application/json' },
+                     method: 'POST',
+                    credentials: 'same-origin'
+                })
+                .then((resp)=> {return resp.json()})
+                .then((user) => {this.state.user=user; alert("User Details updated Successfully")});
+            ;
+        }
+
         // const {
         //     email,
         //     password,
@@ -130,7 +140,7 @@ export default class Profile extends Component {
             lastname,
             phone,
             passwordConfirmation,
-        } = this.state;
+        } = this.state.user;
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -190,7 +200,6 @@ export default class Profile extends Component {
                                         ref={input => this.passwordInput = input}
                                         onSubmitEditing={() => this.confirmationInput.focus()}
                                         onChangeText={(password) => this.setState({password})}
-                                        errorMessage={isPasswordValid ? null : 'Please enter at least 8 characters'}
                                         style={styles.input}
                                     />
                                     <FormLabel
@@ -221,7 +230,6 @@ export default class Profile extends Component {
                                         ref={input => this.confirmationInput = input}
                                         onSubmitEditing={this.signUp}
                                         onChangeText={passwordConfirmation => this.setState({ passwordConfirmation })}
-                                        errorMessage={isConfirmationValid ? null : 'Please enter the same password'}
                                         style={styles.input}
                                     />
                                     <FormLabel
@@ -312,7 +320,7 @@ export default class Profile extends Component {
                                         buttonStyle={styles.profileButton}
                                         containerStyle={{marginTop: 32, flex: 0}}
                                         activeOpacity={0.8}
-                                        title='PROFILE'
+                                        title='UPDATE'
                                         onPress={this.update}
                                         titleStyle={styles.profileTextButton}
                                         loading={isLoading}
