@@ -20,7 +20,7 @@ class StudentService {
     }
 
     getProfile() {
-        return fetch(STUDENT_API_URL)
+        return fetch(STUDENT_API_URL,{credentials:"same-origin"})
             .then(function (response) {
                 return response.json();
             });

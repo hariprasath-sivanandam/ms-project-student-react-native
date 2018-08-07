@@ -27,8 +27,9 @@
     "react-native": "~0.55.2",
     "react-native-action-button": "^2.8.4",
     "react-native-elements": "^0.19.1",
-    "react-native-tabs": "^1.0.9",
+    "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-scripts": "^1.14.0",
+    "react-native-tabs": "^1.0.9",
     "react-navigation": "^2.9.3"
   },
   "peerDependencies": {

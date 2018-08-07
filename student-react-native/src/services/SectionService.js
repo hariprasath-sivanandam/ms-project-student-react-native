@@ -3,13 +3,7 @@ import 'es6-symbol/implement';
 const SECTION_API_ENROLL_URL =
     'https://ms-project-java-server.herokuapp.com/api/section/SID/enrollment';
 
-const SECTION_API_URL = 'https://ms-project-java-server.herokuapp.com/api/student/section/SID'
-
-// const SECTION_API_URL_TEST =
-//     'https://ms-project-java-server.herokuapp.com/api/section/SID/enrollment/12';
-//
-// const MY_SECTION_API_URL_TEST =
-//     'https://ms-project-java-server.herokuapp.com/api/student/section/12';
+const SECTION_API_URL = 'https://ms-project-java-server.herokuapp.com/api/student/section/SID';
 
 let _singleton = Symbol();
 export default class SectionService {
@@ -61,8 +55,9 @@ export default class SectionService {
     }
 
     deleteSection(sectionId){
-        return fetch(SECTION_API_URL.replace("SID",sectionId),{
+        console.log(sectionId);
+        return fetch("https://ms-project-java-server.herokuapp.com/api/section/"+sectionId,{
             method:'DELETE'
-        })
+        });
     }
 }

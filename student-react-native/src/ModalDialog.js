@@ -85,10 +85,10 @@ export default class ModalDialog extends Component {
                             <View style={{alignItems: 'flex-end'}}>
                                 <Icon
                                     style={{float: 'right'}}
-                                    raised
+                                    raised reverse
                                     name='times'
                                     type='font-awesome'
-                                    color='#f50'
+                                    color='#e57373'
                                     onPress={() => this.ShowModalFunction(!this.state.ModalVisibleStatus)}/>
                             </View>
                             <Text
@@ -99,8 +99,8 @@ export default class ModalDialog extends Component {
                                 <FormInput placeholder="Max seats"
                                            onChangeText={(val) => this.setState({sectionMaxseats: val})}>{this.state.sectionMaxseats}</FormInput>
                             </View>
-                            <View style={{marginTop: 10}}>
-                                <Button title={"Submit"} onPress={() => {
+                            <View style={{marginTop: 10,backgroundColor:'#26A69A'}}>
+                                <Button backgroundColor='#26A69A' title={"Submit"} onPress={() => {
                                     (this.state.type) == 'EDIT' ? this.updateSection() : this.addSection()
                                 }}/>
                             </View>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     TextStyle: {
         fontSize: 20,
         marginBottom: 20,
-        color: "#3f80d6",
+        color: "#8D6E63",
         padding: 20,
         textAlign: 'center'
     }

@@ -43,7 +43,7 @@ const CustomStack = createStackNavigator({
 
 class AllCourse extends Component{
     constructor(props){
-        super(props)
+        super(props);
     }
     render(){
         return(
@@ -77,10 +77,10 @@ const DrawerRouter = createDrawerNavigator({
                 ),
             })
         },
-        MyCourse: {
+        "My Courses": {
             screen: MyCourse,
         },
-        AllCourse: {
+        "All Courses": {
             screen: AllCourse,
         },
         Profile: {
