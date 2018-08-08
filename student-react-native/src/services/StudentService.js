@@ -1,11 +1,13 @@
 import 'es6-symbol/implement';
-
 let _singleton = Symbol();
-const STUDENT_API_URL =
+const LOGIN_URL =
+    'https://ms-project-java-server.herokuapp.com/api/student/login';
+const PROFILE_URL =
     'https://ms-project-java-server.herokuapp.com/api/student/profile';
-
-const STUDENT_API_URL_TEST =
-    'https://ms-project-java-server.herokuapp.com/api/student/2';
+const LOGOUT_URL =
+    'https://ms-project-java-server.herokuapp.com/api/student/logout';
+const REGISTER_URL =
+    'https://ms-project-java-server.herokuapp.com/api/student/register';
 
 class StudentService {
     constructor(singletonToken) {
@@ -19,20 +21,61 @@ class StudentService {
         return this[_singleton]
     }
 
+    login(uname, pwd){
+        return fetch(LOGIN_URL,
+            {
+                body: JSON.stringify({"username": uname, "password": pwd}),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST',
+                credentials: 'same-origin'
+            })
+            .then((response) => {
+                return response.json()
+            });
+    }
+
+    register(uname, pwd){
+        return fetch(REGISTER_URL,
+            {
+                body: JSON.stringify({"username": uname, "password": pwd}),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST',
+                credentials: 'same-origin'
+            })
+            .then((response) => {
+                return response.json()
+            });
+    }
+
     getProfile() {
-        return fetch(STUDENT_API_URL)
-            .then(function (response) {
+        return fetch(PROFILE_URL,{
+            credentials: "same-origin",
+        }).then(function (response) {
                 return response.json();
             });
     }
 
-    logout(){
-        return fetch("https://ms-project-java-server.herokuapp.com/api/student/logout",{
-            method: 'POST',
-            credentials:"same-origin"
-        });
+    updateProfile(user){
+        return fetch(PROFILE_URL,
+            {
+                body: JSON.stringify(user),
+                headers: {'Content-Type': 'application/json'},
+                method: 'PUT',
+                credentials: 'same-origin'
+            }).then((response) => {
+            return response.json();
+        })
     }
 
+    logout(){
+        return fetch(LOGOUT_URL,{
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {'Content-Type': 'application/json'}
+        }).then(function (response) {
+            return response.json();
+        });
+    }
 }
 
 export default StudentService;

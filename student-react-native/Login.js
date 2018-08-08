@@ -1,10 +1,6 @@
 import 'es6-symbol/implement'
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
-// const navigateAction = NavigationActions.navigate({
-//     routeName: 'MyCourse',
-//     params: "my_course",
-// });
 
 import PropTypes from 'prop-types';
 import {
@@ -23,6 +19,7 @@ import {TextInput} from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import StudentService from "./src/services/StudentService";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -45,6 +42,7 @@ TabSelector.propTypes = {
     selected: PropTypes.bool.isRequired,
 };
 
+const studentService = StudentService.instance;
 export default class Login extends Component {
 
     constructor(props) {
@@ -63,7 +61,6 @@ export default class Login extends Component {
         this.selectCategory = this.selectCategory.bind(this);
         this.login = this.login.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.next_page = this.next_page.bind(this);
     }
 
     async componentDidMount() {
@@ -88,27 +85,21 @@ export default class Login extends Component {
         const {
             username,
             password,
+            passwordConfirmation,
         } = this.state;
         if (username.length < 1 || password.length < 1)
             alert("Please enter the username and password");
         else {
             this.setState({isLoading: true});
-            fetch("https://ms-project-java-server.herokuapp.com/api/student/login",
-                {
-                    body: JSON.stringify({"username": username, "password": password}),
-                    headers: {'Content-Type': 'application/json'},
-                    method: 'POST'
-                })
-                .then((response) => {
-                    return response.json()
-                })
+            studentService.login(username, password)
                 .then((user) => {
+                    this.setState({isLoading: false});
                     if (user.username !== undefined)
                         this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"});
-                    else
+                    else {
                         alert("The UserName/Password is incorrect.")
+                    }
                 });
-            this.setState({isLoading: false});
         }
     }
 
@@ -124,17 +115,9 @@ export default class Login extends Component {
             alert("password does not match");
         else {
             this.setState({isLoading: true});
-            fetch("https://ms-project-java-server.herokuapp.com/api/student/register",
-                {
-                    body: JSON.stringify({"username": username, "password": password}),
-                    headers: {'Content-Type': 'application/json'},
-                    method: 'POST'
-                })
-                .then((response) => {
-                    return response.json()
-                })
+            studentService.register(username, password)
                 .then((user) => {
-                    console.log(user)
+                    this.setState({isLoading: false});
                     if (user.error === "Conflict")
                         alert("The UserName is already taken")
                     else if (user.username === username)
@@ -144,10 +127,6 @@ export default class Login extends Component {
                 })
             this.setState({isLoading: false});
         }
-    }
-
-    next_page() {
-        this.props.navigation.navigate('MyCourse');
     }
 
     render() {
@@ -291,15 +270,6 @@ export default class Login extends Component {
                                     />
                                 </View>
                             </KeyboardAvoidingView>
-                            <View style={styles.helpContainer}>
-                                <Button
-                                    title={'next step'}
-                                    titleStyle={{color: 'white'}}
-                                    buttonStyle={{backgroundColor: 'transparent'}}
-                                    underlayColor='transparent'
-                                    onPress={() => this.next_page()}
-                                />
-                            </View>
                         </View>
                         :
                         <Text>Loading...</Text>

@@ -1,17 +1,37 @@
 import React, {Component} from 'react'
-import {View, ScrollView} from 'react-native'
-import {Text, Button, Card, ButtonGroup} from 'react-native-elements'
+import {View, ScrollView, TouchableOpacity} from 'react-native'
+import {Text, Button, Card, ButtonGroup, Icon} from 'react-native-elements'
 import CourseService from './services/CourseService'
 import SectionService from './services/SectionService'
 import StudentService from './services/StudentService'
 import ToggleButton from './ToggleButton'
-
+import MyRoutes from '../MyRoutes'
 const courseService = CourseService.instance;
 const sectionService = SectionService.instance;
 const studentService = StudentService.instance;
 
 export default class Course extends Component {
-    static navigationOptions = {title: 'Courses'};
+    static navigationOptions = ({navigation}) => ({
+        title: 'Allcourse Title',
+        headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+    })
+    // static navigationOptions = ({navigation, screenProps}) =>({
+    //     title: 'Courses1',
+    //     headerRight: (
+    //         <Button
+    //             title='Setting'
+    //             onPress={ () => props.navigation.navigate('DrawerOpen') }
+    //             backgroundColor= "rgba(0,0,0,0)"
+    //             color="rgba(0,122,255,1)"
+    //         />
+    //     ),
+        // style: {
+        //     marginTop: Platform.OS === 'android' ? 24 : 0
+        // },
+    //     tabBarIcon: ({ tintColor}) => {
+    //         return <Icon name = "favorite" size={26} color={tintColor} />;
+    //     }
+    // });
 
     constructor(props) {
         super(props);

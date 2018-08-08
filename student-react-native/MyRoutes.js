@@ -31,15 +31,9 @@ const CustomStack = createStackNavigator({
     LessonTabs,
     SectionList,
     SectionEdit,
-    Login
+
+    
 });
-
-// const AllCourse = () => (
-//     <CustomStack screenProps={{courseType: 'ALL_COURSE'}}></CustomStack>
-// );
-
-// const MyCourse = () => (
-//     <CustomStack screenProps={{courseType: 'MY_COURSE'}}></CustomStack>);
 
 class AllCourse extends Component{
     constructor(props){
@@ -65,29 +59,48 @@ const DrawerRouter = createDrawerNavigator({
         Login: {
             screen: Login,
             navigationOptions: ({navigation}) => ({
-                title: 'Login',
-                headerLeft: (
-                    <Icon
-                        name="bars"
-                        size={30}
-                        type="font-awesome"
-                        style={{paddingLeft: 10}}
-                        onPress={() => navigation.navigate('DrawerOpen')}
-                    />
-                ),
+                title: 'Login Title',
             })
+            // navigationOptions: ({navigation}) => ({
+            //     title: 'Login',
+            //     headerLeft: (
+            //         <Icon
+            //             name="bars"
+            //             size={30}
+            //             type="font-awesome"
+            //             style={{paddingLeft: 10}}
+            //             onPress={() => navigation.navigate('DrawerOpen')}
+            //         />
+            //     ),
+            // })
         },
         MyCourse: {
             screen: MyCourse,
+            navigationOptions: ({navigation}) => ({
+                title: 'Mycourse Title',
+                headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+            })
         },
         AllCourse: {
             screen: AllCourse,
+            navigationOptions: ({navigation}) => ({
+                title: 'Allcourse Title',
+                headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+            })
         },
         Profile: {
             screen: Profile,
+            navigationOptions: ({navigation}) => ({
+                title: 'Profile Title',
+                headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+            })
         },
         Logout: {
             screen: Logout,
+            navigationOptions: ({navigation}) => ({
+                title: 'Logout Title',
+                headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+            })
         }
     },
     {

@@ -51,27 +51,14 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
-        // userData = fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",
-        //     {
-        //         headers: {'Content-Type': 'application/json'},
-        //         method: 'GET',
-        //         credentials: "same-origin"
-        //     })
-        //     .then((response) => {
-        //         return response.json()
-        //     })
-        //     .then((user) => {
-        //         console.log("response");
-        //         console.log(user);
-        //         return user;
-        //     })
+
         this.state={user:{}};
-        // console.log("inside profile-----");
-        // console.log(userData);
         this.selectCategory = this.selectCategory.bind(this);
         this.update = this.update.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
-        this.getUserDetails();
+       // this.validateEmail = this.validateEmail.bind(this);
+        this.updateField = this.updateField.bind(this);
+        console.log("inside profile constructor")
     }
 
     getUserDetails(){
@@ -80,14 +67,18 @@ export default class Profile extends Component {
         )
     }
 
-    async componentDidMount() {
-        await Font.loadAsync({
+
+    componentDidMount() {
+        console.log("------open inside profile")
+        Font.loadAsync({
             'georgia': require('./assets/fonts/Georgia.ttf'),
             'regular': require('./assets/fonts/Montserrat-Regular.ttf'),
             'light': require('./assets/fonts/Montserrat-Light.ttf'),
         });
-
+        this.getUserDetails();
         this.setState({ fontLoaded: true });
+        console.log(this.state.user);
+        console.log("****closed inside profile")
     }
 
     selectCategory(selectedCategory) {
@@ -98,67 +89,49 @@ export default class Profile extends Component {
         });
     }
 
-    validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // validateEmail(email) {
+    //     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //
+    //     return re.test(email);
+    // }
 
-        return re.test(email);
+    updateField(param1, param2){
+        this.state.user[param1] = param2;
     }
 
     update() {
-        const user= this.state.user
-        console.log(user)
-        if(!this.validateEmail(user.email))
-            alert("Please enter a valid Email")
-        else if(password.length<1)
+        const user =this.state.user;
+        // if(!this.validateEmail(user.email))
+        //     alert("Please enter a valid Email")
+        if(user.password.length<1)
             alert("Please enter valid password")
-        else if(password !== passwordConfirmation)
+        else if(user.password !== user.passwordConfirmation)
             alert("Password does not match")
         else{
-            fetch("https://ms-project-java-server.herokuapp.com/api/student/profile",
-                {
-                     body: JSON.stringify({user: user}),
-                     headers: { 'Content-Type': 'application/json' },
-                     method: 'POST',
-                    credentials: 'same-origin'
-                })
-                .then((resp)=> {return resp.json()})
-                .then((user) => {this.state.user=user; alert("User Details updated Successfully")});
-            ;
+            studentService.updateProfile(user)
+                .then((user) => {
+                    console.log(user);
+                    user.passwordConfirmation = user.password;
+                    this.setState({user: user});
+                    //this.state.user.passwordConfirmation = user.password;
+                    alert("User Details updated Successfully")});
         }
-
-        // const {
-        //     email,
-        //     password,
-        // } = this.state;
-        // if(!this.validateEmail(email)){
-        //     this.emailInput.shake();
-        //     alert("Invalid email");
-        // }
-        // if(password.length<1){
-        //     this.passwordInput.shake();
-        //     alert("Invalid password");
-        // }
-        // this.setState({ isLoading: true });
-        // fetch("https://ms-project-java-server.herokuapp.com/api/student/login",
-        //     {
-        //         body: JSON.stringify({"username":email, "password": password}),
-        //         headers: { 'Content-Type': 'application/json' },
-        //         method: 'POST'
-        //     }).then((resp)=> {alert("login success"); this.setState({isLoading: false})});
     }
 
     render() {
+        this.state.user.passwordConfirmation = this.state.user.password;
         const {
             selectedCategory,
             isLoading,
             email,
             password,
             username,
-            firstname,
-            lastname,
+            firstName,
+            lastName,
             phone,
             passwordConfirmation,
         } = this.state.user;
+
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -182,7 +155,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={username}
+                                        defaultValue={username}
                                         keyboardAppearance='light'
                                         autoFocus={false}
                                         autoCapitalize='none'
@@ -205,7 +178,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={password}
+                                        defaultValue={password}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
                                         autoCorrect={false}
@@ -234,7 +207,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={passwordConfirmation}
+                                        defaultValue={passwordConfirmation}
                                         secureTextEntry={true}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
@@ -252,6 +225,19 @@ export default class Profile extends Component {
                                     />
                                     <FormLabel
                                         labelStyle={{textAlign: 'left'}}>
+                                        Email
+                                    </FormLabel>
+                                    <FormInput
+                                        refInput={input => (this.emailInput = input)}
+                                        icon="envelope"
+                                        defaultValue={email}
+                                        onChangeText={email => this.setState({ email })}
+                                        placeholder="Email"
+                                        keyboardType="email-address"
+                                        returnKeyType="next"
+                                    />
+                                    <FormLabel
+                                        labelStyle={{textAlign: 'left'}}>
                                         First Name
                                     </FormLabel>
                                     <FormInput
@@ -263,7 +249,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={this.state.user.firstname}
+                                        defaultValue={this.state.user.firstName}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
                                         autoCorrect={false}
@@ -274,7 +260,7 @@ export default class Profile extends Component {
                                         inputStyle={{marginLeft: 10}}
                                         placeholder={'first name'}
                                         ref={input => this.confirmationInput = input}
-                                        onChangeText={firstname => this.setState({ firstname })}
+                                        onChangeText={firstName => this.updateField("firstName", firstName)}
                                         style={styles.input}
                                     />
                                     <FormLabel
@@ -291,7 +277,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={lastname}
+                                        defaultValue={lastName}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
                                         autoCorrect={false}
@@ -302,7 +288,7 @@ export default class Profile extends Component {
                                         inputStyle={{marginLeft: 10}}
                                         placeholder={'last name'}
                                         ref={input => this.confirmationInput = input}
-                                        onChangeText={lastname => this.setState({ lastname })}
+                                        onChangeText={lastName => this.setState(user.lastName, lastName)}
                                         style={styles.input}
                                     />
                                     <FormLabel
@@ -319,7 +305,7 @@ export default class Profile extends Component {
                                                 style={{backgroundColor: 'transparent'}}
                                             />
                                         }
-                                        value={phone}
+                                        defaultValue={phone}
                                         keyboardAppearance='light'
                                         autoCapitalize='none'
                                         autoCorrect={false}
@@ -328,7 +314,7 @@ export default class Profile extends Component {
                                         blurOnSubmit={true}
                                         containerStyle={{marginTop: 16, borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
                                         inputStyle={{marginLeft: 10}}
-                                        placeholder={'first name'}
+                                        placeholder={'phone'}
                                         ref={input => this.confirmationInput = input}
                                         onChangeText={phone => this.setState({ phone })}
                                         style={styles.input}
