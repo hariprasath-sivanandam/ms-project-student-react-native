@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, ScrollView, Alert, StyleSheet} from 'react-native'
+import {View, ScrollView, Alert, StyleSheet, ToastAndroid} from 'react-native'
 import {Text, ListItem, Button, Card, Icon} from 'react-native-elements'
 import SectionService from './services/SectionService'
 import ModalDialog from './ModalDialog'
@@ -33,7 +33,7 @@ export default class SectionEdit extends Component {
     }
 
     deleteHandler(sectionId) {
-        sectionService.deleteSection(sectionId).then(alert("successfully deleted the section"));
+        sectionService.deleteSection(sectionId).then(ToastAndroid.show('Successfully deleted', ToastAndroid.SHORT));
         this.setState({
             sections: this.state.sections.filter((section) => {
                 return (section.id !== sectionId)

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, ScrollView} from 'react-native'
+import {View, ScrollView, ToastAndroid} from 'react-native'
 import {Text, Button, Card, ButtonGroup,Icon} from 'react-native-elements'
 import CourseService from './services/CourseService'
 import SectionService from './services/SectionService'
@@ -178,7 +178,7 @@ export default class Course extends Component {
             })
         });
         this.setState({courses: updatedCourses});
-        courseService.updateCourseType(updatedCourses).then(() => alert("Successfully Updated Information"));
+        courseService.updateCourseType(updatedCourses).then(() => ToastAndroid.show('Successfully updated Information', ToastAndroid.SHORT));
     }
 
     render() {

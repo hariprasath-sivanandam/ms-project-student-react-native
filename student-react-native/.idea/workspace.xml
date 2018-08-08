@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1775c0ae-f3b3-4a29-96a4-385f1d598757" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/SectionList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectionList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Course.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModalDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModalDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SectionEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectionEdit.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,20 +31,21 @@
       <file leaf-file-name="SectionEdit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SectionEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="119" column="65" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="65" />
+            <state relative-caret-position="187">
+              <caret line="35" column="114" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="114" />
               <folding>
-                <marker date="1533701386814" expanded="true" signature="2330:2525" ph="..." />
+                <element signature="e#0#38#0" expanded="true" />
+                <marker date="1533703194044" expanded="true" signature="2364:2559" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Course.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Course.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Course.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="214" column="88" lean-forward="true" selection-start-line="214" selection-start-column="88" selection-end-line="214" selection-end-column="88" />
+            <state relative-caret-position="313">
+              <caret line="180" column="117" selection-start-line="180" selection-start-column="117" selection-end-line="180" selection-end-column="117" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -61,8 +65,11 @@
       <file leaf-file-name="ModalDialog.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ModalDialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1734">
-              <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
+            <state relative-caret-position="238">
+              <caret line="65" column="72" lean-forward="true" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="72" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SectionList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SectionList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SectionList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="80" column="50" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
+            <state relative-caret-position="600">
+              <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -144,6 +151,7 @@
       <find>SECTION_API_URL</find>
       <find>myCourse</find>
       <find>navigate</find>
+      <find>alert</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,11 +176,11 @@
         <option value="$PROJECT_DIR$/src/services/SectionService.js" />
         <option value="$PROJECT_DIR$/src/services/StudentService.js" />
         <option value="$PROJECT_DIR$/MyRoutes.js" />
-        <option value="$PROJECT_DIR$/src/ModalDialog.js" />
         <option value="$PROJECT_DIR$/Login.js" />
+        <option value="$PROJECT_DIR$/src/SectionList.js" />
+        <option value="$PROJECT_DIR$/src/ModalDialog.js" />
         <option value="$PROJECT_DIR$/src/SectionEdit.js" />
         <option value="$PROJECT_DIR$/src/Course.js" />
-        <option value="$PROJECT_DIR$/src/SectionList.js" />
       </list>
     </option>
   </component>
@@ -204,6 +212,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -226,7 +235,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -424,12 +432,13 @@
       <workItem from="1533618422132" duration="701000" />
       <workItem from="1533697296686" duration="1498000" />
       <workItem from="1533699125507" duration="1508000" />
-      <workItem from="1533701017251" duration="1156000" />
+      <workItem from="1533701017251" duration="1922000" />
+      <workItem from="1533702973965" duration="347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235469000" />
+    <option name="totallyTimeSpent" value="236582000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -460,19 +469,19 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16259088" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="3" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -484,7 +493,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -760,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ModalDialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="107" column="27" lean-forward="true" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/services/CourseService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -795,30 +797,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Course.js">
+    <entry file="file://$PROJECT_DIR$/src/SectionList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="214" column="88" lean-forward="true" selection-start-line="214" selection-start-column="88" selection-end-line="214" selection-end-column="88" />
+        <state relative-caret-position="600">
+          <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SectionEdit.js">
+    <entry file="file://$PROJECT_DIR$/src/ModalDialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="119" column="65" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="65" />
+        <state relative-caret-position="238">
+          <caret line="65" column="72" lean-forward="true" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="72" />
           <folding>
-            <marker date="1533701386814" expanded="true" signature="2330:2525" ph="..." />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SectionList.js">
+    <entry file="file://$PROJECT_DIR$/src/SectionEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="80" column="50" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
+        <state relative-caret-position="187">
+          <caret line="35" column="114" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="114" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <marker date="1533703194044" expanded="true" signature="2364:2559" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Course.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="180" column="117" selection-start-line="180" selection-start-column="117" selection-end-line="180" selection-end-column="117" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
