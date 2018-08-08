@@ -78,10 +78,10 @@ export default class SectionList extends Component {
                         {this.sectionIsPresent(section.id) ? <Button
                             backgroundColor='#e57373'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='UNROLL' onPress={() => this.unrollStudent(section.id)}/> : <Button
+                            leftIcon={{name:'clear'}} title='UNROLL' onPress={() => this.unrollStudent(section.id)}/> : <Button
                             backgroundColor='#66BB6A'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='ENROLL' disabled = {section.seats == 0? true: false} onPress={() => this.enrollStudent(section.id)}/>}
+                            leftIcon={{name:'done'}} title='ENROLL' disabled = {section.seats == 0? true: false} onPress={() => this.enrollStudent(section.id)}/>}
 
                     </Card>
                 ))}

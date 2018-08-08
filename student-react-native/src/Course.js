@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, ScrollView} from 'react-native'
+import {View, ScrollView, ToastAndroid} from 'react-native'
 import {Text, Button, Card, ButtonGroup,Icon} from 'react-native-elements'
 import CourseService from './services/CourseService'
 import SectionService from './services/SectionService'
@@ -16,7 +16,10 @@ export default class Course extends Component {
         const {state} = navigation;
         return {
             title: state.params ? state.params.title : "Courses",
-            headerLeft: null
+            headerLeft: null,
+            headerStyle: {
+                backgroundColor: '#546E7A'
+            }
         };
     };
 
@@ -175,7 +178,7 @@ export default class Course extends Component {
             })
         });
         this.setState({courses: updatedCourses});
-        courseService.updateCourseType(updatedCourses).then(() => alert("Successfully Updated Information"));
+        courseService.updateCourseType(updatedCourses).then(() => ToastAndroid.show('Successfully updated Information', ToastAndroid.SHORT));
     }
 
     render() {
@@ -184,7 +187,7 @@ export default class Course extends Component {
                 <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
                 {this.state.courses && this.state.courses.length ==0 && <Text style={{textAlign:"center"}}>No courses to display</Text>}
                 {this.state.user && this.state.user.admin == true && this.state.courses && this.state.courses.length > 0 &&
-                <Button backgroundColor='#66BB6A' title={"SAVE"} onPress={() => this.updateCourseDetails()}/>}
+                <Button leftIcon={{name:'save'}} backgroundColor='#66BB6A' title={"SAVE"} onPress={() => this.updateCourseDetails()}/>}
                 {this.state.courses.map((course, index) => (
                     <Card
                         key={index}
@@ -195,12 +198,12 @@ export default class Course extends Component {
                         <Button
                             backgroundColor='#00897B'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='COURSE DETAILS' onPress={() => this.props.navigation
+                            title='COURSE DETAILS' leftIcon={{name:'description'}} onPress={() => this.props.navigation
                             .navigate('ModuleList', {modules: course.modules})}/>
                         <Button
                             backgroundColor='#546E7A'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='SECTIONS' onPress={() => this.props.navigation
+                            leftIcon={{name:'info'}} title='SECTIONS' onPress={() => this.props.navigation
                             .navigate('SectionList', {
                                 sections: course.sections,
                                 my_sections: this.state.my_sections,
@@ -210,7 +213,7 @@ export default class Course extends Component {
                         <Button
                             backgroundColor='#757575'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            title='EDIT SECTIONS' onPress={() => this.props.navigation
+                            leftIcon={{name:'edit'}} title='EDIT SECTIONS' onPress={() => this.props.navigation
                             .navigate('SectionEdit', {
                                 sections: course.sections,
                                 courseId: course.id,

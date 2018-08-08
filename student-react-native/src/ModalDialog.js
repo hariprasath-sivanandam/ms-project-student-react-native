@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
-import {StyleSheet, View, Modal, Text, Button, Platform} from 'react-native';
+import {StyleSheet, View, Modal, Text, Button, Platform, ToastAndroid} from 'react-native';
 import {Icon} from 'react-native-elements'
 import SectionService from './services/SectionService'
 import CourseService from './services/CourseService'
@@ -49,7 +49,7 @@ export default class ModalDialog extends Component {
         };
 
         courseService.updateSection(this.state.courseId, sectionObj).then(() => {
-            alert("Successfully updated");
+            ToastAndroid.show('Successfully updated', ToastAndroid.SHORT);
             this.ShowModalFunction(false);
             this.state.callback(sectionObj);
         }).catch(err => alert("Error!"))
@@ -63,7 +63,7 @@ export default class ModalDialog extends Component {
             'maxseats': this.state.sectionMaxseats
         };
         courseService.addSection(this.state.courseId, sectionObj).then((responseObj) => {
-            alert("Successfully Added");
+            ToastAndroid.show('Successfully Added', ToastAndroid.SHORT);
             this.ShowModalFunction(false);
             this.state.callback(responseObj);
         }).catch(err => alert("Error!"))
