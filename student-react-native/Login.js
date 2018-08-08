@@ -93,14 +93,12 @@ export default class Login extends Component {
             this.setState({isLoading: true});
             studentService.login(username, password)
                 .then((user) => {
-                    this.setState({isLoading: false});
                     if (user.username !== undefined)
-                        this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"});
-                    else {
                         this.props.navigation.navigate("My Courses", {courseType: "MY_COURSE"});
-                    else
-                        alert("The UserName/Password is incorrect.")
+                    else {
+                        alert("The UserName/Password is incorrect.");
                     }
+                    this.setState({isLoading: false});
                 });
         }
     }

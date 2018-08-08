@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import {
     StyleSheet,
     View,
+    ScrollView,
     Text,
     ImageBackground,
     Dimensions,
@@ -69,7 +70,6 @@ export default class Profile extends Component {
 
 
     componentDidMount() {
-        console.log("------open inside profile")
         Font.loadAsync({
             'georgia': require('./assets/fonts/Georgia.ttf'),
             'regular': require('./assets/fonts/Montserrat-Regular.ttf'),
@@ -77,8 +77,6 @@ export default class Profile extends Component {
         });
         this.getUserDetails();
         this.setState({ fontLoaded: true });
-        console.log(this.state.user);
-        console.log("****closed inside profile")
     }
 
     selectCategory(selectedCategory) {
@@ -139,7 +137,7 @@ export default class Profile extends Component {
                     style={styles.bgImage}
                 >
                     {this.state.fontLoaded ?
-                        <View>
+                        <ScrollView>
                             <KeyboardAvoidingView contentContainerStyle={styles.profileContainer} behavior='position'>
                                 <View style={styles.formContainer}>
                                     <FormLabel
@@ -332,7 +330,7 @@ export default class Profile extends Component {
                                     />
                                 </View>
                             </KeyboardAvoidingView>
-                        </View>
+                        </ScrollView>
                         :
                         <Text>Loading...</Text>
                     }
