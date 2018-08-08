@@ -103,7 +103,7 @@ export default class SectionEdit extends Component {
     render() {
         return (
             <ScrollView style={{padding: 15}}>
-                <Button backgroundColor='#66BB6A' title={"ADD SECTION"} onPress={() => this.addSection()}/>
+                <Button leftIcon={{name:'add'}} backgroundColor='#66BB6A' title={"ADD SECTION"} onPress={() => this.addSection()}/>
                 {this.state.sections.map((section, index) => (
                     <Card
                         key={index}
@@ -113,11 +113,11 @@ export default class SectionEdit extends Component {
                         <Button
                             backgroundColor='#e57373'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='DELETE' onPress={() => this.deleteSection(section.id)}/>
+                            title='DELETE' leftIcon={{name:'delete'}} onPress={() => this.deleteSection(section.id)}/>
                         <Button
                             backgroundColor='#FFB74D'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='EDIT'
+                            title='EDIT' leftIcon={{name:'edit'}}
                             onPress={() => this.editSection(section.id, section.name, section.maxseats, section.seats)}/>
 
                     </Card>
