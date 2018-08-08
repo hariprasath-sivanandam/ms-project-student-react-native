@@ -37,7 +37,7 @@ const CustomStack = createStackNavigator({
 
 class AllCourse extends Component{
     constructor(props){
-        super(props)
+        super(props);
     }
     render(){
         return(
@@ -74,14 +74,14 @@ const DrawerRouter = createDrawerNavigator({
             //     ),
             // })
         },
-        MyCourse: {
+        "My Courses": {
             screen: MyCourse,
             navigationOptions: ({navigation}) => ({
                 title: 'Mycourse Title',
                 headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
             })
         },
-        AllCourse: {
+        "All Courses": {
             screen: AllCourse,
             navigationOptions: ({navigation}) => ({
                 title: 'Allcourse Title',

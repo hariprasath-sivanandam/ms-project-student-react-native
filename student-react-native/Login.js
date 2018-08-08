@@ -97,6 +97,8 @@ export default class Login extends Component {
                     if (user.username !== undefined)
                         this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"});
                     else {
+                        this.props.navigation.navigate("My Courses", {courseType: "MY_COURSE"});
+                    else
                         alert("The UserName/Password is incorrect.")
                     }
                 });
@@ -121,7 +123,7 @@ export default class Login extends Component {
                     if (user.error === "Conflict")
                         alert("The UserName is already taken")
                     else if (user.username === username)
-                        this.props.navigation.navigate("MyCourse", {courseType: "MY_COURSE"})
+                        this.props.navigation.navigate("My Courses", {courseType: "MY_COURSE"})
                     else
                         alert("Please enter valid details")
                 })

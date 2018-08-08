@@ -5,13 +5,13 @@ import SectionService from './services/SectionService'
 import ModalDialog from './ModalDialog'
 import ActionButton from 'react-native-action-button';
 
-const sectionService = SectionService.instance
+const sectionService = SectionService.instance;
 
 export default class SectionEdit extends Component {
-    static navigationOptions = {title: 'Sections'}
+    static navigationOptions = {title: 'Sections'};
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             sections: [],
             courseId: -1,
@@ -103,7 +103,7 @@ export default class SectionEdit extends Component {
     render() {
         return (
             <ScrollView style={{padding: 15}}>
-                <Button title={"ADD SECTION"} onPress={() => this.addSection()}/>
+                <Button backgroundColor='#66BB6A' title={"ADD SECTION"} onPress={() => this.addSection()}/>
                 {this.state.sections.map((section, index) => (
                     <Card
                         key={index}
@@ -111,11 +111,11 @@ export default class SectionEdit extends Component {
                         <Text>Seats Left: {section.seats}</Text>
                         <Text>Max Seats: {section.maxseats}</Text>
                         <Button
-                            backgroundColor='#03A9F4'
+                            backgroundColor='#e57373'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
                             title='DELETE' onPress={() => this.deleteSection(section.id)}/>
                         <Button
-                            backgroundColor='#03A9F4'
+                            backgroundColor='#FFB74D'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
                             title='EDIT'
                             onPress={() => this.editSection(section.id, section.name, section.maxseats, section.seats)}/>
