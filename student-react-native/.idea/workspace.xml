@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1775c0ae-f3b3-4a29-96a4-385f1d598757" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SectionEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectionEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SectionList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectionList.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,8 +28,8 @@
       <file leaf-file-name="SectionEdit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SectionEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+            <state relative-caret-position="396">
+              <caret line="119" column="65" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="65" />
               <folding>
                 <marker date="1533701386814" expanded="true" signature="2330:2525" ph="..." />
               </folding>
@@ -40,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Course.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Course.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Course.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="220" column="34" lean-forward="true" selection-start-line="220" selection-start-column="34" selection-end-line="220" selection-end-column="34" />
+            <state relative-caret-position="447">
+              <caret line="214" column="88" lean-forward="true" selection-start-line="214" selection-start-column="88" selection-end-line="214" selection-end-column="88" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -79,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SectionList.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SectionList.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SectionList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+            <state relative-caret-position="413">
+              <caret line="80" column="50" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -171,11 +168,11 @@
         <option value="$PROJECT_DIR$/src/services/SectionService.js" />
         <option value="$PROJECT_DIR$/src/services/StudentService.js" />
         <option value="$PROJECT_DIR$/MyRoutes.js" />
-        <option value="$PROJECT_DIR$/src/SectionList.js" />
         <option value="$PROJECT_DIR$/src/ModalDialog.js" />
         <option value="$PROJECT_DIR$/Login.js" />
         <option value="$PROJECT_DIR$/src/SectionEdit.js" />
         <option value="$PROJECT_DIR$/src/Course.js" />
+        <option value="$PROJECT_DIR$/src/SectionList.js" />
       </list>
     </option>
   </component>
@@ -427,12 +424,12 @@
       <workItem from="1533618422132" duration="701000" />
       <workItem from="1533697296686" duration="1498000" />
       <workItem from="1533699125507" duration="1508000" />
-      <workItem from="1533701017251" duration="725000" />
+      <workItem from="1533701017251" duration="1156000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235038000" />
+    <option name="totallyTimeSpent" value="235469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -791,16 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SectionList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/services/SectionService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -808,20 +795,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Course.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="214" column="88" lean-forward="true" selection-start-line="214" selection-start-column="88" selection-end-line="214" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/SectionEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+        <state relative-caret-position="396">
+          <caret line="119" column="65" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="65" />
           <folding>
             <marker date="1533701386814" expanded="true" signature="2330:2525" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Course.js">
+    <entry file="file://$PROJECT_DIR$/src/SectionList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="220" column="34" lean-forward="true" selection-start-line="220" selection-start-column="34" selection-end-line="220" selection-end-column="34" />
+        <state relative-caret-position="413">
+          <caret line="80" column="50" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
