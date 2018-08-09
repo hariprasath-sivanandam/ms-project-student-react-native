@@ -14,11 +14,6 @@ const studentService = StudentService.instance;
 export default class Course extends Component {
     static navigationOptions = ({navigation}) => {
         const {state} = navigation;
-        // console.log("=====inside navigate");
-        // console.log(navigation);
-        // console.log("=====inside navigate");
-        console.log(state)
-        console.log("*******")
         return {
             title: state.params ? state.params.title : "Courses",
             headerLeft: <Icon name="menu" size={35} onPress={ () => state.params.rr.openDrawer() } />,
@@ -30,10 +25,6 @@ export default class Course extends Component {
 
     constructor(props) {
         super(props);
-        const rootNav = this.props.screenProps.rootNavigation;
-        //console.log(this.props)
-        console.log("========")
-
         let courseType = null;
         if (this.props.screenProps && this.props.screenProps.courseType) {
             courseType = this.props.screenProps.courseType;
@@ -47,9 +38,6 @@ export default class Course extends Component {
 
     componentDidMount() {
         console.log("inside component did mount");
-        // this.navigation.setParams({
-        //     rootNav: this.props.screenProps.rootNavigation
-        // })
         let courseType = null;
         if (this.props.screenProps && this.props.screenProps.courseType) {
             courseType = this.props.screenProps.courseType;
@@ -57,7 +45,7 @@ export default class Course extends Component {
         else {
             courseType = this.props.navigation.getParam("courseType");
         }
-        //console.log(courseType);
+        console.log(courseType);
         this.setState({courseType: courseType});
         const {setParams} = this.props.navigation;
         setParams({title: courseType == "MY_COURSE" ? "My Courses" : "All Courses",
@@ -142,21 +130,21 @@ export default class Course extends Component {
         let errorFlag = false;
         let courseErrorFlag = false;
         courseService.findCourses(courseType).then(courses => {
-            //console.log("courses");
-            //console.log(courses);
+            console.log("courses");
+            console.log(courses);
             courseData = courses;
         }).catch(() => {
             errorFlag = true;
             courseErrorFlag = true;
         }).then(() => sectionService.findSectionsForStudent().then(sections => {
-            //console.log("sections:");
-            //console.log(sections);
+            console.log("sections:");
+            console.log(sections);
             sectionData = sections;
         }).catch(() => {
             errorFlag = true;
         }).then(()=> studentService.getProfile().then(user => {
-            //console.log("user");
-            //console.log(user);
+            console.log("user");
+            console.log(user);
             userData = user;
         }).catch(() => {
             errorFlag = true;

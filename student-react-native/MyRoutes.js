@@ -16,7 +16,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const CustomDrawerContentComponent = props => (
     <View style={{flex: 1, backgroundColor: '#43484d'}}>
         <View style={{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Student World</Text>
+            <Text>WhiteBoard</Text>
         </View>
         <View style={{marginLeft: 10}}>
             <DrawerItems {...props} />
@@ -59,7 +59,7 @@ const DrawerRouter = createDrawerNavigator({
         Login: {
             screen: Login,
             navigationOptions: ({navigation}) => ({
-                title: 'Login Title',
+                title: 'Login',
             })
             // navigationOptions: ({navigation}) => ({
             //     title: 'Login',
@@ -77,28 +77,22 @@ const DrawerRouter = createDrawerNavigator({
         "My Courses": {
             screen: MyCourse,
             navigationOptions: ({navigation}) => ({
-                title: 'Mycourse Title',
                 headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
             })
         },
         "All Courses": {
             screen: AllCourse,
             navigationOptions: ({navigation}) => ({
-                title: 'Allcourse Title',
                 headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
             })
         },
         Profile: {
-            screen: Profile,
-            // navigationOptions: ({navigation}) => ({
-            //     title: 'Profile Title',
-            //     headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
-            // })
+            screen: Profile
         },
         Logout: {
             screen: Logout,
             navigationOptions: ({navigation}) => ({
-                title: 'Logout Title',
+                title: 'Logout',
                 headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
             })
         }
