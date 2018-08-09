@@ -16,7 +16,7 @@ export default class Course extends Component {
         const {state} = navigation;
         return {
             title: state.params ? state.params.title : "Courses",
-            headerLeft: null,
+            headerLeft: <Icon name="menu" size={25} IconStyle={{ paddingLeft:50}} onPress={ () => navigation.navigate('DrawerOpen') } />,
             headerStyle: {
                 backgroundColor: '#546E7A'
             }

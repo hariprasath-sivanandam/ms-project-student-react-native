@@ -148,14 +148,11 @@ export default class Login extends Component {
                     style={styles.bgImage}
                 >
                     {this.state.fontLoaded ?
-                        <View>
+//                        <View>
                             <KeyboardAvoidingView contentContainerStyle={styles.loginContainer} behavior='position'>
                                 <View style={styles.titleContainer}>
                                     <View style={{flexDirection: 'row'}}>
-                                        <Text style={styles.titleText}>Student</Text>
-                                    </View>
-                                    <View style={{marginTop: -10, marginLeft: 10}}>
-                                        <Text style={styles.titleText}>World</Text>
+                                        <Text style={styles.titleText}>WhiteBoard</Text>
                                     </View>
                                 </View>
                                 <View style={{flexDirection: 'row'}}>
@@ -269,7 +266,7 @@ export default class Login extends Component {
                                     />
                                 </View>
                             </KeyboardAvoidingView>
-                        </View>
+                     //   </View>
                         :
                         <Text>Loading...</Text>
                     }

@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "sdkVersion": "27.0.0",
+	"name":"Whiteboard",
+	"slug":"Whiteboard",
+	"ios":{
+		"bundleIdentifier": "com.student.whiteboard",
+	},
+	"android": {
+	"package": "com.student.whiteboard",
+    }
   }
 }
