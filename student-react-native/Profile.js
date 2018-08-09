@@ -1,6 +1,7 @@
 import 'es6-symbol/implement'
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
+import {Header} from 'react-native-elements';
 
 const studentService = StudentService.instance;
 import PropTypes from 'prop-types';
@@ -22,25 +23,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import StudentService from "./src/services/StudentService";
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
+// const SCREEN_WIDTH = Dimensions.get('window').width;
+// const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 
 // Enable LayoutAnimation on Android
-UIManager.setLayoutAnimationEnabledExperimental
-&& UIManager.setLayoutAnimationEnabledExperimental(true);
-
-const TabSelector = ({selected}) => {
-    return (
-        <View style={styles.selectorContainer}>
-            <View style={selected && styles.selected}/>
-        </View>
-    );
-};
-
-TabSelector.propTypes = {
-    selected: PropTypes.bool.isRequired,
-};
+//UIManager.setLayoutAnimationEnabledExperimental
+//&& UIManager.setLayoutAnimationEnabledExperimental(true);
+//
+// const TabSelector = ({selected}) => {
+//     return (
+//         <View style={styles.selectorContainer}>
+//             <View style={selected && styles.selected}/>
+//         </View>
+//     );
+// };
+//
+// TabSelector.propTypes = {
+//     selected: PropTypes.bool.isRequired,
+// };
 
 export default class Profile extends Component {
     static navigationOptions = ({navigation}) => {
@@ -120,6 +121,11 @@ export default class Profile extends Component {
         return (
             <ScrollView>
                 <KeyboardAvoidingView contentContainerStyle={styles.profileContainer} behavior='position'>
+                    <Header
+                        outerContainerStyles={{ backgroundColor: '#546E7A' }}
+                        leftComponent={{ icon: 'menu', size:35, color: 'black', onPress:() =>{this.props.navigation.openDrawer()} }}
+                        centerComponent={{ text: 'MY TITLE', style: { color: 'black' } }}
+                    />
                     <View style={styles.formContainer}>
                         <FormLabel
                             labelStyle={{textAlign: 'left'}}>
@@ -317,7 +323,7 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         backgroundColor: 'white',
-        width: SCREEN_WIDTH - 30,
+       // width: SCREEN_WIDTH - 30,
         borderRadius: 10,
         paddingTop: 32,
         paddingBottom: 32,
@@ -332,8 +338,8 @@ const styles = StyleSheet.create({
         flex: 1,
         top: 0,
         left: 0,
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT,
+        // width: SCREEN_WIDTH,
+        // height: SCREEN_HEIGHT,
         // justifyContent: 'center',
         // alignItems: 'center',
     },

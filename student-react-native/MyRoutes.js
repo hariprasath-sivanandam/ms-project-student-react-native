@@ -41,7 +41,7 @@ class AllCourse extends Component{
     }
     render(){
         return(
-            <CustomStack screenProps={{courseType: 'ALL_COURSE'}}></CustomStack>)
+            <CustomStack screenProps={{rootNavigation: this.props.navigation, courseType: 'ALL_COURSE'}}></CustomStack>)
     }
 }
 
@@ -51,7 +51,7 @@ class MyCourse extends Component{
     }
     render(){
         return(
-        <CustomStack screenProps={{courseType: 'MY_COURSE'}}></CustomStack>)
+        <CustomStack screenProps={{rootNavigation: this.props.navigation, courseType: 'MY_COURSE'}}></CustomStack>)
     }
 }
 
@@ -90,10 +90,10 @@ const DrawerRouter = createDrawerNavigator({
         },
         Profile: {
             screen: Profile,
-            navigationOptions: ({navigation}) => ({
-                title: 'Profile Title',
-                headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
-            })
+            // navigationOptions: ({navigation}) => ({
+            //     title: 'Profile Title',
+            //     headerLeft: <Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />
+            // })
         },
         Logout: {
             screen: Logout,
