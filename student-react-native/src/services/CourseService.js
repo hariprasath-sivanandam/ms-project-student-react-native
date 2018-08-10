@@ -71,7 +71,8 @@ class CourseService {
         return fetch(SECTION_API_URL.replace('CID', courseId), {
             body: JSON.stringify(section),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'credentials':'same-origin'
             },
             method: 'PUT'
         })
@@ -81,7 +82,8 @@ class CourseService {
         return fetch(SECTION_API_URL.replace('CID', courseId), {
             body: JSON.stringify(section),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'credentials':'same-origin'
             },
             method: 'POST'
         }).then(response => {

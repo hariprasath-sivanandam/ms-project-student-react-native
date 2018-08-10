@@ -134,7 +134,7 @@ export default class Course extends Component {
                 {this.state.courses && this.state.courses.length == 0 &&
                 <View style={{alignItems: 'center'}}><Text>No courses to display</Text></View>}
                 {this.state.user && this.state.user.admin == true && this.state.courses && this.state.courses.length > 0 &&
-                <Button leftIcon={{name: 'save'}} backgroundColor='#66BB6A' title={"SAVE"}
+                <Button leftIcon={{name: 'save'}} backgroundColor='#00796B' title={"SAVE"}
                         onPress={() => this.updateCourseDetails()}/>}
                 {this.state.courses.map((course, index) => (
                     <Card

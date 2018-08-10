@@ -57,7 +57,8 @@ export default class SectionService {
     deleteSection(sectionId){
         console.log(sectionId);
         return fetch("https://ms-project-java-server.herokuapp.com/api/section/"+sectionId,{
-            method:'DELETE'
+            method:'DELETE',
+            credentials: "same-origin"
         });
     }
 }
