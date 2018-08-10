@@ -74,6 +74,7 @@ export default class SectionEdit extends Component {
             if (mysection.id === section.id) {
                 mysection.name = section.name;
                 mysection.maxseats = section.maxseats;
+                mysection.seats = section.seats;
             }
             updatedSections.push(mysection);
         });
