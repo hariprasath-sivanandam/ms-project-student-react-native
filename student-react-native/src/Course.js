@@ -16,7 +16,7 @@ export default class Course extends Component {
         const {state} = navigation;
         return {
             title: state.params ? state.params.title : "Courses",
-            headerLeft: <Icon name="menu" size={35} onPress={ () => state.params.rr.openDrawer() } />,
+            headerLeft: <Icon name="menu" size={25} onPress={ () => state.params.rr.openDrawer() } />,
             headerStyle: {
                 backgroundColor: '#546E7A'
             }
@@ -152,6 +152,7 @@ export default class Course extends Component {
             if(errorFlag && courseErrorFlag){
                 this.setState({loading:false});
                 alert("Login required.");
+                this.props.screenProps.rootNavigation.goBack();
             }
             else{
                 this.setState({courses:courseData,my_sections:sectionData,user:userData,loading:false});

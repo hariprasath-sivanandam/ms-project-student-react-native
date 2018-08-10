@@ -71,14 +71,12 @@ export default class Profile extends Component {
         studentService.getProfile().then(user => {
             user.passwordConfirmation = user.password;
             this.setState({user: user});
-        })
+        }).catch(() => {alert("Login required.");
+        this.props.navigation.goBack();})
     }
 
     componentDidMount() {
-        console.log("------open inside profile")
         this.getUserDetails();
-        console.log(this.state.user);
-        console.log("****closed inside profile")
     }
 
 
@@ -120,12 +118,12 @@ export default class Profile extends Component {
 
         return (
             <ScrollView>
+                <Header
+                    outerContainerStyles={{ backgroundColor: '#546E7A', position: 'relative' }}
+                    leftComponent={{ icon: 'menu', size:25, color: 'black', onPress:() =>{this.props.navigation.openDrawer()} }}
+                    centerComponent={{ text: 'PROFILE', style: { color: 'black' } }}
+                />
                 <KeyboardAvoidingView contentContainerStyle={styles.profileContainer} behavior='position'>
-                    <Header
-                        outerContainerStyles={{ backgroundColor: '#546E7A' }}
-                        leftComponent={{ icon: 'menu', size:35, color: 'black', onPress:() =>{this.props.navigation.openDrawer()} }}
-                        centerComponent={{ text: 'MY TITLE', style: { color: 'black' } }}
-                    />
                     <View style={styles.formContainer}>
                         <FormLabel
                             labelStyle={{textAlign: 'left'}}>
@@ -271,7 +269,6 @@ export default class Profile extends Component {
                     </View>
                 </KeyboardAvoidingView>
             </ScrollView>
-
         );
     }
 }
