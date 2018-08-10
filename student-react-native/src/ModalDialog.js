@@ -17,11 +17,14 @@ export default class ModalDialog extends Component {
             sectionId: props.sectionId,
             sectionName: props.sectionName,
             sectionMaxseats: props.sectionMaxseats,
+            newSectionName: props.sectionName,
+            newSectionMaxseats: props.sectionMaxseats,
             sectionSeats: props.sectionSeats,
             courseId: props.courseId,
             callback: props.callback,
             type: props.type
         };
+        this.validate = this.validate.bind(this);
     }
 
     ShowModalFunction(visible) {
@@ -33,40 +36,62 @@ export default class ModalDialog extends Component {
             ModalVisibleStatus: newProps.visible,
             sectionId: newProps.sectionId,
             sectionName: newProps.sectionName,
+            sectionSeats: newProps.sectionSeats,
             sectionMaxseats: newProps.sectionMaxseats,
+            newSectionName: newProps.sectionName,
+            newSectionMaxseats: newProps.sectionMaxseats,
             courseId: newProps.courseId,
             callback: newProps.callback,
             type: newProps.type
         })
     }
 
-    updateSection() {
-        let sectionObj = {
-            'id': this.state.sectionId,
-            'name': this.state.sectionName,
-            'seats': this.state.sectionSeats,
-            'maxseats': this.state.sectionMaxseats
-        };
+    validate() {
+        return (this.state.newSectionName &&
+            this.state.newSectionName.length > 0 &&
+            this.state.newSectionMaxseats &&
+            this.state.newSectionMaxseats.length > 0 &&
+            !isNaN(Number(this.state.newSectionMaxseats)))
+    }
 
-        courseService.updateSection(this.state.courseId, sectionObj).then(() => {
-            ToastAndroid.show('Successfully updated', ToastAndroid.SHORT);
-            this.ShowModalFunction(false);
-            this.state.callback(sectionObj);
-        }).catch(err => alert("Error!"))
+
+    updateSection() {
+        if (this.validate() && Number(this.state.newSectionMaxseats) >= (Number(this.state.sectionMaxseats) - Number(this.state.sectionSeats))) {
+            let sectionObj = {
+                'id': this.state.sectionId,
+                'name': this.state.newSectionName,
+                'seats': (this.state.newSectionMaxseats - this.state.sectionMaxseats) + this.state.sectionSeats,
+                'maxseats': this.state.newSectionMaxseats
+            };
+
+            courseService.updateSection(this.state.courseId, sectionObj).then(() => {
+                ToastAndroid.show('Successfully updated', ToastAndroid.SHORT);
+                this.ShowModalFunction(false);
+                this.state.callback(sectionObj);
+            }).catch(err => alert("Error!"))
+        }
+        else {
+            alert("Please enter valid values")
+        }
     }
 
     addSection() {
-        let sectionObj = {
-            'id': this.state.sectionId,
-            'name': this.state.sectionName,
-            'seats': this.state.sectionMaxseats,
-            'maxseats': this.state.sectionMaxseats
-        };
-        courseService.addSection(this.state.courseId, sectionObj).then((responseObj) => {
-            ToastAndroid.show('Successfully Added', ToastAndroid.SHORT);
-            this.ShowModalFunction(false);
-            this.state.callback(responseObj);
-        }).catch(err => alert("Error!"))
+        if (this.validate()) {
+            let sectionObj = {
+                'id': this.state.sectionId,
+                'name': this.state.newSectionName,
+                'seats': this.state.sectionMaxseats,
+                'maxseats': this.state.newSectionMaxseats
+            };
+            courseService.addSection(this.state.courseId, sectionObj).then((responseObj) => {
+                ToastAndroid.show('Successfully Added', ToastAndroid.SHORT);
+                this.ShowModalFunction(false);
+                this.state.callback(responseObj);
+            }).catch(err => alert("Error!"))
+        }
+        else {
+            alert("Please enter valid values")
+        }
     }
 
     render() {
@@ -95,11 +120,11 @@ export default class ModalDialog extends Component {
                                 style={styles.TextStyle}>{this.state.type == "EDIT" ? "EDIT SECTION" : "ADD SECTION"}</Text>
                             <View style={{alignItems: 'center', marginLeft: 30}}>
                                 <FormInput placeholder="Section Name"
-                                           onChangeText={(val) => this.setState({sectionName: val})}>{this.state.sectionName}</FormInput>
+                                           onChangeText={(val) => this.setState({newSectionName: val})}>{this.state.newSectionName}</FormInput>
                                 <FormInput placeholder="Max seats"
-                                           onChangeText={(val) => this.setState({sectionMaxseats: val})}>{this.state.sectionMaxseats}</FormInput>
+                                           onChangeText={(val) => this.setState({newSectionMaxseats: val})}>{this.state.newSectionMaxseats}</FormInput>
                             </View>
-                            <View style={{marginTop: 10,backgroundColor:'#26A69A'}}>
+                            <View style={{marginTop: 10, backgroundColor: '#26A69A'}}>
                                 <Button backgroundColor='#26A69A' title={"Submit"} onPress={() => {
                                     (this.state.type) == 'EDIT' ? this.updateSection() : this.addSection()
                                 }}/>

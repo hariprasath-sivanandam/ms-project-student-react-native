@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, ScrollView, ToastAndroid} from 'react-native'
-import {Text, Button, Card, ButtonGroup,Icon} from 'react-native-elements'
+import {Text, Button, Card, ButtonGroup, Icon, Badge} from 'react-native-elements'
 import CourseService from './services/CourseService'
 import SectionService from './services/SectionService'
 import StudentService from './services/StudentService'
@@ -16,7 +16,7 @@ export default class Course extends Component {
         const {state} = navigation;
         return {
             title: state.params ? state.params.title : "Courses",
-            headerLeft: <Icon name="menu" size={35} onPress={ () => state.params.rr.openDrawer() } />,
+            headerLeft: <Icon name="menu" size={35} onPress={() => state.params.rr.openDrawer()}/>,
             headerStyle: {
                 backgroundColor: '#546E7A'
             }
@@ -32,8 +32,9 @@ export default class Course extends Component {
         else {
             courseType = this.props.navigation.getParam("courseType");
         }
-        this.state = {user: {}, courses: [], my_sections: [], courseType: courseType,loading:false};
+        this.state = {user: {}, courses: [], my_sections: [], courseType: courseType, loading: false};
         this.loadCourses = this.loadCourses.bind(this);
+        this.setHeader = this.setHeader.bind(this);
     }
 
     componentDidMount() {
@@ -47,10 +48,7 @@ export default class Course extends Component {
         }
         console.log(courseType);
         this.setState({courseType: courseType});
-        const {setParams} = this.props.navigation;
-        setParams({title: courseType == "MY_COURSE" ? "My Courses" : "All Courses",
-            rr: this.props.screenProps.rootNavigation});
-        //setParams({rr: this.props.screenProps.rootNavigation})
+        //this.setHeader(courseType);
         this.loadCourses(courseType);
         this.updateCourseDetails.bind(this);
     }
@@ -59,71 +57,16 @@ export default class Course extends Component {
         this.loadCourses(this.state.courseType);
     };
 
+    setHeader(courseType) {
+        const {setParams} = this.props.navigation;
+        setParams({
+            title: courseType == "MY_COURSE" ? "My Courses (" + this.state.courses.length + ")" : "All Courses (" + this.state.courses.length + ")",
+            rr: this.props.screenProps.rootNavigation
+        });
+    }
+
     loadCourses(courseType) {
-        this.setState({courses: [], my_sections: [], user: {},loading:true});
-
-        // courseService.findCourses(courseType).then(courses => {
-        //     console.log("courses");
-        //     console.log(courses);
-        //     this.setState({courses: courses})
-        //     //localCourses = courses;
-        // }).catch(() => {
-        //     console.log("Error course service");
-        //     alert("Error occured. Try again.")
-        // });
-        //
-        // sectionService.findSectionsForStudent().then(sections => {
-        //     console.log("sections:");
-        //     console.log(sections);
-        //     this.setState({my_sections: sections});
-        // }).catch(() => {
-        //     console.log("Error section service");
-        //     alert("Error retrieving data. Login required");
-        // });
-        //
-        // studentService.getProfile().then(user => {
-        //     console.log("user");
-        //     console.log(user);
-        //     this.setState({user: user});
-        // }).catch(() => {
-        //     console.log("Error student service");
-        //     alert("Error retrieving data. Login required");
-        // });
-
-        ///////////////////////////////////////////////////////////
-        //Don't delete this code. Its a bit efficient, but untested.
-        // let courseData = [];
-        // let sectionData = [];
-        // let userData = {};
-        //
-        // courseService.findCourses(courseType).then(courses => {
-        //     sectionService.findSectionsForStudent().then(sections => {
-        //         studentService.getProfile().then(user => {
-        //             userData = user;
-        //         }).catch(() => {
-        //             console.log("Error student service");
-        //             alert("Error retrieving data. Login required");
-        //         });
-        //         sectionData = sections;
-        //     }).catch(() => {
-        //         console.log("Error section service");
-        //         alert("Error retrieving data. Login required");
-        //     });
-        //     courseData = courses;
-        // }).then(
-        //     () => {
-        //         console.log("courses");
-        //         console.log(courseData);
-        //         console.log("sections:");
-        //         console.log(sectionData);
-        //         console.log("user");
-        //         console.log(userData);
-        //         this.setState({courses: courseData, my_sections: sectionData, user: userData})
-        //     }).catch(() => {
-        //     console.log("Error course service");
-        //     alert("Error occurred. Try again.");
-        // });
-
+        this.setState({courses: [], my_sections: [], user: {}, loading: true});
         let courseData = [];
         let sectionData = [];
         let userData = {};
@@ -142,19 +85,20 @@ export default class Course extends Component {
             sectionData = sections;
         }).catch(() => {
             errorFlag = true;
-        }).then(()=> studentService.getProfile().then(user => {
+        }).then(() => studentService.getProfile().then(user => {
             console.log("user");
             console.log(user);
             userData = user;
         }).catch(() => {
             errorFlag = true;
-        }))).then(()=>{
-            if(errorFlag && courseErrorFlag){
-                this.setState({loading:false});
+        }))).then(() => {
+            if (errorFlag && courseErrorFlag) {
+                this.setState({loading: false});
                 alert("Login required.");
             }
-            else{
-                this.setState({courses:courseData,my_sections:sectionData,user:userData,loading:false});
+            else {
+                this.setState({courses: courseData, my_sections: sectionData, user: userData, loading: false});
+                this.setHeader(courseType);
             }
         });
     }
@@ -186,10 +130,12 @@ export default class Course extends Component {
     render() {
         return (
             <ScrollView style={{padding: 15}}>
-                <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
-                {this.state.courses && this.state.courses.length ==0 && <Text style={{textAlign:"center"}}>No courses to display</Text>}
+                <Spinner visible={this.state.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}}/>
+                {this.state.courses && this.state.courses.length == 0 &&
+                <View style={{alignItems: 'center'}}><Text>No courses to display</Text></View>}
                 {this.state.user && this.state.user.admin == true && this.state.courses && this.state.courses.length > 0 &&
-                <Button leftIcon={{name:'save'}} backgroundColor='#66BB6A' title={"SAVE"} onPress={() => this.updateCourseDetails()}/>}
+                <Button leftIcon={{name: 'save'}} backgroundColor='#66BB6A' title={"SAVE"}
+                        onPress={() => this.updateCourseDetails()}/>}
                 {this.state.courses.map((course, index) => (
                     <Card
                         key={index}
@@ -200,12 +146,12 @@ export default class Course extends Component {
                         <Button
                             backgroundColor='#00897B'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='COURSE DETAILS' leftIcon={{name:'description'}} onPress={() => this.props.navigation
+                            title='COURSE DETAILS' leftIcon={{name: 'description'}} onPress={() => this.props.navigation
                             .navigate('ModuleList', {modules: course.modules})}/>
                         <Button
                             backgroundColor='#546E7A'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            leftIcon={{name:'info'}} title='SECTIONS' onPress={() => this.props.navigation
+                            leftIcon={{name: 'info'}} title='SECTIONS' onPress={() => this.props.navigation
                             .navigate('SectionList', {
                                 sections: course.sections,
                                 my_sections: this.state.my_sections,
@@ -215,7 +161,7 @@ export default class Course extends Component {
                         <Button
                             backgroundColor='#757575'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            leftIcon={{name:'edit'}} title='EDIT SECTIONS' onPress={() => this.props.navigation
+                            leftIcon={{name: 'edit'}} title='EDIT SECTIONS' onPress={() => this.props.navigation
                             .navigate('SectionEdit', {
                                 sections: course.sections,
                                 courseId: course.id,
