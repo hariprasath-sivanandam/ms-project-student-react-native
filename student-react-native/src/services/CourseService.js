@@ -35,8 +35,6 @@ class CourseService {
             .then(function (response) {
                 return response.json();
             }).then(res => {
-                console.log("inside my course");
-                console.log(res);
                 return res;
             });
     }
@@ -50,7 +48,7 @@ class CourseService {
             method: 'POST'
         }).then(function (response) {
             return response.json();
-        })
+        });
     }
 
     deleteCourse(courseId) {
@@ -72,7 +70,7 @@ class CourseService {
             body: JSON.stringify(section),
             headers: {
                 'Content-Type': 'application/json',
-                'credentials':'same-origin'
+                'credentials': 'same-origin'
             },
             method: 'PUT'
         })
@@ -83,11 +81,11 @@ class CourseService {
             body: JSON.stringify(section),
             headers: {
                 'Content-Type': 'application/json',
-                'credentials':'same-origin'
+                'credentials': 'same-origin'
             },
             method: 'POST'
         }).then(response => {
-            return response.json()
+            return response.json();
         })
     }
 

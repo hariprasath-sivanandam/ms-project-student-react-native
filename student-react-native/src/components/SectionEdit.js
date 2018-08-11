@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {View, ScrollView, Alert, StyleSheet, ToastAndroid} from 'react-native'
-import {Text, ListItem, Button, Card, Icon} from 'react-native-elements'
-import SectionService from './services/SectionService'
+import {Alert, ScrollView, ToastAndroid} from 'react-native'
+import {Button, Card, Text} from 'react-native-elements'
+import SectionService from '../services/SectionService'
 import ModalDialog from './ModalDialog'
-import ActionButton from 'react-native-action-button';
 
 const sectionService = SectionService.instance;
 
@@ -17,8 +16,8 @@ export default class SectionEdit extends Component {
             courseId: -1,
             visible: false,
             callback: props.callback,
-            type:'EDIT'
-        }
+            type: 'EDIT'
+        };
     }
 
     componentDidMount() {
@@ -36,10 +35,10 @@ export default class SectionEdit extends Component {
         sectionService.deleteSection(sectionId).then(ToastAndroid.show('Successfully deleted', ToastAndroid.SHORT));
         this.setState({
             sections: this.state.sections.filter((section) => {
-                return (section.id !== sectionId)
+                return (section.id !== sectionId);
             })
         });
-        this.state.callback()
+        this.state.callback();
     }
 
     deleteSection(sectionId) {
@@ -54,7 +53,7 @@ export default class SectionEdit extends Component {
                 {text: 'OK', onPress: () => this.deleteHandler(sectionId)},
             ],
             {cancelable: true}
-        )
+        );
     }
 
     editSection(sectionId, sectionName, sectionMaxSeats, sectionSeats) {
@@ -80,14 +79,14 @@ export default class SectionEdit extends Component {
         });
 
         this.setState({sections: updatedSections, visible: false});
-        this.state.callback()
+        this.state.callback();
     }
 
     updateLocalStateADD(section) {
         let updatedSections = this.state.sections;
         updatedSections.push(section);
         this.setState({sections: updatedSections, visible: false});
-        this.state.callback()
+        this.state.callback();
     }
 
     addSection() {
@@ -104,7 +103,8 @@ export default class SectionEdit extends Component {
     render() {
         return (
             <ScrollView style={{padding: 15}}>
-                <Button leftIcon={{name:'add'}} backgroundColor='#00796B' title={"ADD SECTION"} onPress={() => this.addSection()}/>
+                <Button leftIcon={{name: 'add'}} backgroundColor='#00796B' title={"ADD SECTION"}
+                        onPress={() => this.addSection()}/>
                 {this.state.sections.map((section, index) => (
                     <Card
                         key={index}
@@ -114,11 +114,11 @@ export default class SectionEdit extends Component {
                         <Button
                             backgroundColor='#8D6E63'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='DELETE' leftIcon={{name:'delete'}} onPress={() => this.deleteSection(section.id)}/>
+                            title='DELETE' leftIcon={{name: 'delete'}} onPress={() => this.deleteSection(section.id)}/>
                         <Button
                             backgroundColor='#607D8B'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            title='EDIT' leftIcon={{name:'edit'}}
+                            title='EDIT' leftIcon={{name: 'edit'}}
                             onPress={() => this.editSection(section.id, section.name, section.maxseats, section.seats)}/>
 
                     </Card>

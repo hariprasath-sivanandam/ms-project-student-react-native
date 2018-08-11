@@ -1,4 +1,5 @@
 import 'es6-symbol/implement';
+
 let _singleton = Symbol();
 const LOGIN_URL =
     'https://ms-project-java-server.herokuapp.com/api/student/login';
@@ -21,7 +22,7 @@ class StudentService {
         return this[_singleton]
     }
 
-    login(uname, pwd){
+    login(uname, pwd) {
         return fetch(LOGIN_URL,
             {
                 body: JSON.stringify({"username": uname, "password": pwd}),
@@ -30,11 +31,11 @@ class StudentService {
                 credentials: 'same-origin'
             })
             .then((response) => {
-                return response.json()
+                return response.json();
             });
     }
 
-    register(uname, pwd){
+    register(uname, pwd) {
         return fetch(REGISTER_URL,
             {
                 body: JSON.stringify({"username": uname, "password": pwd}),
@@ -43,19 +44,19 @@ class StudentService {
                 credentials: 'same-origin'
             })
             .then((response) => {
-                return response.json()
-            });
-    }
-
-    getProfile() {
-        return fetch(PROFILE_URL,{
-            credentials: "same-origin",
-        }).then(function (response) {
                 return response.json();
             });
     }
 
-    updateProfile(user){
+    getProfile() {
+        return fetch(PROFILE_URL, {
+            credentials: "same-origin",
+        }).then(function (response) {
+            return response.json();
+        });
+    }
+
+    updateProfile(user) {
         return fetch(PROFILE_URL,
             {
                 body: JSON.stringify(user),
@@ -67,8 +68,8 @@ class StudentService {
         })
     }
 
-    logout(){
-        return fetch(LOGOUT_URL,{
+    logout() {
+        return fetch(LOGOUT_URL, {
             method: 'POST',
             credentials: "same-origin",
             headers: {'Content-Type': 'application/json'}

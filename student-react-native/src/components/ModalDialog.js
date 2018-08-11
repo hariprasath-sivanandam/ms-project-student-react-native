@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
-import {StyleSheet, View, Modal, Text, Button, Platform, ToastAndroid} from 'react-native';
-import {Icon} from 'react-native-elements'
-import SectionService from './services/SectionService'
-import CourseService from './services/CourseService'
+import {FormInput, Icon} from 'react-native-elements'
+import {Button, Modal, Platform, StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import SectionService from '../services/SectionService'
+import CourseService from '../services/CourseService'
 
 const sectionService = SectionService.instance;
 const courseService = CourseService.instance;
@@ -68,10 +67,10 @@ export default class ModalDialog extends Component {
                 ToastAndroid.show('Successfully updated', ToastAndroid.SHORT);
                 this.ShowModalFunction(false);
                 this.state.callback(sectionObj);
-            }).catch(err => alert("Error!"))
+            }).catch(err => alert("Error!"));
         }
         else {
-            alert("Please enter valid values")
+            alert("Please enter valid values");
         }
     }
 
@@ -87,10 +86,10 @@ export default class ModalDialog extends Component {
                 ToastAndroid.show('Successfully Added', ToastAndroid.SHORT);
                 this.ShowModalFunction(false);
                 this.state.callback(responseObj);
-            }).catch(err => alert("Error!"))
+            }).catch(err => alert("Error!"));
         }
         else {
-            alert("Please enter valid values")
+            alert("Please enter valid values");
         }
     }
 

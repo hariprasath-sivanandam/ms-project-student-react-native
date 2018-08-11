@@ -1,47 +1,10 @@
 import 'es6-symbol/implement'
 import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
-import {Header} from 'react-native-elements';
+import {Button, FormInput, FormLabel, Header} from 'react-native-elements';
+import {KeyboardAvoidingView, ScrollView, StyleSheet, ToastAndroid, View,} from 'react-native';
+import StudentService from "../services/StudentService";
 
 const studentService = StudentService.instance;
-import PropTypes from 'prop-types';
-import {
-    StyleSheet,
-    View, ScrollView,
-    Text,
-    ImageBackground,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView, ToastAndroid,
-} from 'react-native';
-import {Font} from 'expo';
-import {FormInput, FormLabel, Button} from 'react-native-elements'
-import {TextInput} from 'react-native'
-
-import Icon from 'react-native-vector-icons/FontAwesome';
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
-import StudentService from "./src/services/StudentService";
-
-// const SCREEN_WIDTH = Dimensions.get('window').width;
-// const SCREEN_HEIGHT = Dimensions.get('window').height;
-
-
-// Enable LayoutAnimation on Android
-//UIManager.setLayoutAnimationEnabledExperimental
-//&& UIManager.setLayoutAnimationEnabledExperimental(true);
-//
-// const TabSelector = ({selected}) => {
-//     return (
-//         <View style={styles.selectorContainer}>
-//             <View style={selected && styles.selected}/>
-//         </View>
-//     );
-// };
-//
-// TabSelector.propTypes = {
-//     selected: PropTypes.bool.isRequired,
-// };
 
 export default class Profile extends Component {
     static navigationOptions = ({navigation}) => {
@@ -57,22 +20,21 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {user: {}};
-        //this.selectCategory = this.selectCategory.bind(this);
         this.update = this.update.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
         // this.validateEmail = this.validateEmail.bind(this);
         this.updateField = this.updateField.bind(this);
-        console.log("inside profile constructor")
     }
 
     getUserDetails() {
         studentService.getProfile().then(user => {
             user.passwordConfirmation = user.password;
             this.setState({user: user});
-        }).catch(() => {alert("Login required.");
-        this.props.navigation.goBack();})
+        }).catch(() => {
+            alert("Login required.");
+            this.props.navigation.goBack();
+        })
     }
 
     componentDidMount() {
@@ -89,9 +51,9 @@ export default class Profile extends Component {
     update() {
         const user = this.state.user;
         if (user.password.length < 1)
-            alert("Please enter valid password")
+            alert("Please enter valid password");
         else if (user.password !== user.passwordConfirmation)
-            alert("Password does not match")
+            alert("Password does not match");
         else {
             studentService.updateProfile(user)
                 .then((user) => {
@@ -119,11 +81,15 @@ export default class Profile extends Component {
         return (
             <ScrollView>
                 <Header
-                    outerContainerStyles={{ backgroundColor: '#546E7A', position: 'relative' }}
-                    leftComponent={{ icon: 'menu', size:25, color: 'black', onPress:() =>{this.props.navigation.openDrawer()} }}
-                    centerComponent={{ text: 'PROFILE', style: { color: 'black' } }}
+                    outerContainerStyles={{backgroundColor: '#546E7A', position: 'relative'}}
+                    leftComponent={{
+                        icon: 'menu', size: 25, color: 'black', onPress: () => {
+                            this.props.navigation.openDrawer()
+                        }
+                    }}
+                    centerComponent={{text: 'PROFILE', style: {color: 'black'}}}
                 />
-                <KeyboardAvoidingView contentContainerStyle={styles.profileContainer} behavior='position'>
+                <KeyboardAvoidingView behavior='position'>
                     <View style={styles.formContainer}>
                         <FormLabel
                             labelStyle={{textAlign: 'left'}}>
@@ -253,18 +219,18 @@ export default class Profile extends Component {
                             onChangeText={phone => this.updateField("phone", phone)}
                             style={styles.input}
                         />
-                        <View style={{alignItems:'center'}}>
-                        <Button
-                            leftIcon = {{name:'build'}}
-                            buttonStyle={styles.profileButton}
-                            containerStyle={{marginTop: 32, flex: 0}}
-                            activeOpacity={0.8}
-                            title='UPDATE'
-                            onPress={this.update}
-                            titleStyle={styles.profileTextButton}
-                            loading={isLoading}
-                            disabled={isLoading}
-                        />
+                        <View style={{alignItems: 'center'}}>
+                            <Button
+                                leftIcon={{name: 'build'}}
+                                buttonStyle={styles.profileButton}
+                                containerStyle={{marginTop: 32, flex: 0}}
+                                activeOpacity={0.8}
+                                title='UPDATE'
+                                onPress={this.update}
+                                titleStyle={styles.profileTextButton}
+                                loading={isLoading}
+                                disabled={isLoading}
+                            />
                         </View>
                     </View>
                 </KeyboardAvoidingView>
@@ -275,16 +241,14 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     rowSelector: {
         height: 20,
-        flexDirection: 'row',
-        // alignItems: 'center',
+        flexDirection: 'row'
     },
     selectorContainer: {
-        flex: 1,
-        // alignItems: 'center',
+        flex: 1
     },
     selected: {
         position: 'absolute',
@@ -295,53 +259,41 @@ const styles = StyleSheet.create({
         borderRightWidth: 70,
         borderBottomWidth: 70,
         borderColor: 'white',
-        backgroundColor: 'white',
-    },
-    profileContainer: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
+        backgroundColor: 'white'
     },
     profileTextButton: {
         fontSize: 16,
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     profileButton: {
         backgroundColor: 'rgba(232, 147, 142, 1)',
         borderRadius: 10,
         height: 50,
         width: 200,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     titleContainer: {
         height: 150,
-        backgroundColor: 'transparent',
-        // justifyContent: 'center',
+        backgroundColor: 'transparent'
     },
     formContainer: {
         backgroundColor: 'white',
-       // width: SCREEN_WIDTH - 30,
         borderRadius: 10,
         paddingTop: 32,
-        paddingBottom: 32,
-        // alignItems:'center',
+        paddingBottom: 32
     },
     profileText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'white',
+        color: 'white'
     },
     bgImage: {
         flex: 1,
         top: 0,
-        left: 0,
-        // width: SCREEN_WIDTH,
-        // height: SCREEN_HEIGHT,
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        left: 0
     },
     categoryText: {
-        // textAlign: 'center',
         color: 'white',
         fontSize: 24,
         fontFamily: 'light',
@@ -349,7 +301,7 @@ const styles = StyleSheet.create({
         opacity: 0.54,
     },
     selectedCategoryText: {
-        opacity: 1,
+        opacity: 1
     },
     titleText: {
         color: 'white',
@@ -358,8 +310,6 @@ const styles = StyleSheet.create({
     },
     helpContainer: {
         height: 64,
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
     input: {
         height: 40,

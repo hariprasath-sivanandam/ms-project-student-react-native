@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet} from 'react-native'
-import { ButtonGroup } from 'react-native-elements';
+import {ButtonGroup} from 'react-native-elements';
 
 export default class ToggleButton extends Component {
-    constructor (props) {
-        super(props)
+    constructor(props) {
+        super(props);
         this.state = {
             selectedIndex: props.selectedIndex,
-            buttons:props.buttons
-        }
-        this.updateIndex = this.updateIndex.bind(this)
+            buttons: props.buttons
+        };
+        this.updateIndex = this.updateIndex.bind(this);
     }
 
-    updateIndex (selectedIndex) {
-        this.setState({selectedIndex})
+    updateIndex(selectedIndex) {
+        this.setState({selectedIndex});
     }
 
-    getToggleState(){
-        return this.state.selectedIndex == 0?"public":"private";
+    getToggleState() {
+        return this.state.selectedIndex == 0 ? "public" : "private";
     }
 
-    render () {
+    render() {
         const buttons = this.state.buttons;
-        const selectedIndex  = this.state.selectedIndex;
+        const selectedIndex = this.state.selectedIndex;
 
         return (
             <ButtonGroup
-                selectedButtonStyle= {styles.container}
+                selectedButtonStyle={styles.container}
                 onPress={this.updateIndex}
                 selectedIndex={selectedIndex}
                 buttons={buttons}
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#00A3AA'
     }
-})
+});

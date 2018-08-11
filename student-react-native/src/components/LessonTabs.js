@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    View, Image, ScrollView, Linking
-} from 'react-native';
+import {Image, Linking, StyleSheet, View} from 'react-native';
 
 import Tabs from 'react-native-tabs';
-import {List, ListItem, Text, Card} from 'react-native-elements'
+import {Card, List, ListItem, Text} from 'react-native-elements'
 
 
 export default class LessonTabs extends Component {
@@ -44,19 +40,21 @@ export default class LessonTabs extends Component {
                 {this.state.widgets.map((widget) => {
                     switch (widget.widgetType) {
                         case "Heading":
-                            return <Card key={this.state.lessonId +""+widget.id} title="Heading"><Text h1={1 == widget.size} h2={2 == widget.size}
-                                                               h3={3 == widget.size}
-                                                               h4={4 == widget.size}>{widget.text}</Text></Card>;
+                            return <Card key={this.state.lessonId + "" + widget.id} title="Heading"><Text
+                                h1={1 == widget.size} h2={2 == widget.size}
+                                h3={3 == widget.size}
+                                h4={4 == widget.size}>{widget.text}</Text></Card>;
                         case "Paragraph":
-                            return <Card key={this.state.lessonId +""+widget.id} title="Paragraph"><Text>{widget.text}</Text></Card>;
+                            return <Card key={this.state.lessonId + "" + widget.id}
+                                         title="Paragraph"><Text>{widget.text}</Text></Card>;
                         case "List":
-                            return (<Card key={this.state.lessonId +""+widget.id} title="List"><List>
+                            return (<Card key={this.state.lessonId + "" + widget.id} title="List"><List>
                                 {
                                     widget.listItems.split("\n").map((item, i) => {
                                         let listText = widget.listType == "ordered" ? (i + 1) + ".   " + item : item;
                                         if (widget.listType == "unordered") {
                                             return <ListItem
-                                                key={this.state.lessonId +""+"ulist"+widget.id+i}
+                                                key={this.state.lessonId + "" + "ulist" + widget.id + i}
                                                 title={listText}
                                                 hideChevron={true}
                                                 leftIcon={{
@@ -67,7 +65,7 @@ export default class LessonTabs extends Component {
                                         }
                                         else {
                                             return <ListItem
-                                                key={this.state.lessonId +""+"olist"+widget.id+i}
+                                                key={this.state.lessonId + "" + "olist" + widget.id + i}
                                                 title={listText}
                                                 hideChevron={true}
                                             />
@@ -76,11 +74,13 @@ export default class LessonTabs extends Component {
                                 }
                             </List></Card>);
                         case "Link":
-                            return (<Card key={this.state.lessonId +""+widget.id} title="Link"><Text style={{color: 'blue'}}
-                                                             onPress={() => Linking.openURL(widget.href)}>{widget.text}
+                            return (<Card key={this.state.lessonId + "" + widget.id} title="Link"><Text
+                                style={{color: 'blue'}}
+                                onPress={() => Linking.openURL(widget.href)}>{widget.text}
                             </Text></Card>);
                         case "Image":
-                            return (<Card key={this.state.lessonId +""+widget.id} title="Image"><View style={{alignItems: "center"}}><Image
+                            return (<Card key={this.state.lessonId + "" + widget.id} title="Image"><View
+                                style={{alignItems: "center"}}><Image
                                 style={{width: 100, height: 100}}
                                 source={{uri: widget.src}}
                             /></View></Card>)
@@ -100,5 +100,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-AppRegistry.registerComponent('LessonTabs', () => LessonTabs);

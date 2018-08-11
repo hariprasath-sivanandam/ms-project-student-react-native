@@ -1,10 +1,8 @@
 import React from 'react';
-import Expo, { AppLoading, Asset, Font } from 'expo';
-import { View, Image, Text, Dimensions } from 'react-native';
-import { DrawerNavigator, DrawerItems } from 'react-navigation';
+import Expo, {AppLoading, Asset, Font} from 'expo';
+import {Image} from 'react-native';
 
-import MyRoutes from './MyRoutes'
-import Login from './Login'
+import MyRoutes from './src/MyRoutes'
 
 
 function cacheImages(images) {
@@ -28,14 +26,7 @@ export default class AppContainer extends React.Component {
 
     async _loadAssetsAsync() {
         const imageAssets = cacheImages([
-            require('./assets/images/bg_screen1.jpg'),
-            require('./assets/images/bg_screen2.jpg'),
-            require('./assets/images/bg_screen3.jpg'),
             require('./assets/images/bg_screen4.jpg'),
-            require('./assets/images/user-cool.png'),
-            require('./assets/images/user-hp.png'),
-            require('./assets/images/user-student.png'),
-            require('./assets/images/avatar1.jpg'),
         ]);
 
         const fontAssets = cacheFonts([FontAwesome.font, Ionicons.font]);
@@ -47,11 +38,10 @@ export default class AppContainer extends React.Component {
         if (!this.state.isReady) {
             return (
                 <AppLoading
-            startAsync={this._loadAssetsAsync}
-            onFinish={() => this.setState({ isReady: true })}
-            // onError={console.warn}
-            />
-        );
+                    startAsync={this._loadAssetsAsync}
+                    onFinish={() => this.setState({isReady: true})}
+                />
+            );
         }
         else {
             return (
@@ -60,5 +50,3 @@ export default class AppContainer extends React.Component {
         }
     }
 }
-
-Expo.registerRootComponent(AppContainer);

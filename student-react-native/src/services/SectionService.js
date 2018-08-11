@@ -5,6 +5,10 @@ const SECTION_API_ENROLL_URL =
 
 const SECTION_API_URL = 'https://ms-project-java-server.herokuapp.com/api/student/section/SID';
 
+const SECTION_API_DELETE_URL =
+    'https://ms-project-java-server.herokuapp.com/api/section/SID';
+
+
 let _singleton = Symbol();
 export default class SectionService {
     constructor(singletonToken) {
@@ -55,8 +59,7 @@ export default class SectionService {
     }
 
     deleteSection(sectionId){
-        console.log(sectionId);
-        return fetch("https://ms-project-java-server.herokuapp.com/api/section/"+sectionId,{
+        return fetch(SECTION_API_DELETE_URL.replace("SID",sectionId),{
             method:'DELETE',
             credentials: "same-origin"
         });

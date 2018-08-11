@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import {View, ScrollView, ToastAndroid} from 'react-native'
-import {Text, Button, Card, ButtonGroup,Icon} from 'react-native-elements'
-import CourseService from './services/CourseService'
-import SectionService from './services/SectionService'
-import StudentService from './services/StudentService'
+import {ScrollView, ToastAndroid, View} from 'react-native'
+import {Button, Card, Icon, Text} from 'react-native-elements'
+import CourseService from '../services/CourseService'
+import SectionService from '../services/SectionService'
+import StudentService from '../services/StudentService'
 import ToggleButton from './ToggleButton'
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -16,7 +16,7 @@ export default class Course extends Component {
         const {state} = navigation;
         return {
             title: state.params ? state.params.title : "Courses",
-            headerLeft: <Icon name="menu" size={25} onPress={ () => state.params.rr.openDrawer() } />,
+            headerLeft: <Icon name="menu" size={25} onPress={() => state.params.rr.openDrawer()}/>,
             headerStyle: {
                 backgroundColor: '#546E7A'
             }
@@ -48,7 +48,6 @@ export default class Course extends Component {
         }
         console.log(courseType);
         this.setState({courseType: courseType});
-        //this.setHeader(courseType);
         this.loadCourses(courseType);
         this.updateCourseDetails.bind(this);
     }

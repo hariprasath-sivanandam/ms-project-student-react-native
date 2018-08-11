@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import {View, ScrollView, ToastAndroid} from 'react-native'
-import {Text, ListItem, Button, Card} from 'react-native-elements'
-import SectionService from './services/SectionService'
+import {ScrollView, ToastAndroid} from 'react-native'
+import {Button, Card, Text} from 'react-native-elements'
+import SectionService from '../services/SectionService'
 
-const sectionService = SectionService.instance
+const sectionService = SectionService.instance;
 
 export default class SectionList extends Component {
     static navigationOptions = ({navigation}) => {
@@ -14,7 +14,7 @@ export default class SectionList extends Component {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             sections: [],
             my_sections: []
@@ -31,13 +31,15 @@ export default class SectionList extends Component {
         this.setState({
             sections: sections,
             my_sections: my_sections
-        },() => {this.setHeader()});
+        }, () => {
+            this.setHeader()
+        });
     }
 
     setHeader() {
         const {setParams} = this.props.navigation;
         setParams({
-            title: "Sections ("+this.state.sections.length+")",
+            title: "Sections (" + this.state.sections.length + ")",
         });
     }
 
@@ -47,39 +49,39 @@ export default class SectionList extends Component {
         sectionService.enrollStudentInSection(sectionId).then(response => {
             return response.json()
         }).then((res) => {
-            console.log("inside enroll")
+            console.log("inside enroll");
             console.log(res);
             self.props.navigation.state.params.onNavigateBack();
-            ToastAndroid.show('Successfully enrolled in section', ToastAndroid.SHORT)
-            self.props.navigation.goBack()
+            ToastAndroid.show('Successfully enrolled in section', ToastAndroid.SHORT);
+            self.props.navigation.goBack();
         }).catch(err => {
             alert("Error enrolling student. Login required.");
-        })
+        });
     }
 
     unrollStudent(sectionId) {
         let self = this;
         sectionService.unrollStudentInSection(sectionId).then(response => {
-            return response.json()
+            return response.json();
         }).then(() => {
             self.props.navigation.state.params.onNavigateBack();
-            ToastAndroid.show('Successfully unrolled from section', ToastAndroid.SHORT)
-            self.props.navigation.goBack()
+            ToastAndroid.show('Successfully unrolled from section', ToastAndroid.SHORT);
+            self.props.navigation.goBack();
         }).catch(err => {
-            alert("Error unrolling student. Login required.")
+            alert("Error unrolling student. Login required.");
         });
     }
 
     sectionIsPresent(sectionId) {
         let found = false;
-        let my_sections = this.state.my_sections
+        let my_sections = this.state.my_sections;
         for (let i = 0; i < my_sections.length; i++) {
             if (my_sections[i].id == sectionId) {
                 found = true;
                 break;
             }
         }
-        return found
+        return found;
     }
 
     render() {
@@ -90,18 +92,17 @@ export default class SectionList extends Component {
                         key={index}
                         title={section.name}>
                         <Text>Seats Left: {section.seats}</Text>
-
                         {this.sectionIsPresent(section.id) ? <Button
-                            backgroundColor='#e57373'
-                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            leftIcon={{name:'clear'}} title='UNROLL' onPress={() => this.unrollStudent(section.id)}/> : <Button
-                            backgroundColor='#66BB6A'
-                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
-                            leftIcon={{name:'done'}} title='ENROLL' disabled = {section.seats == 0} onPress={() => this.enrollStudent(section.id)}/>}
-
+                                backgroundColor='#e57373'
+                                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
+                                leftIcon={{name: 'clear'}} title='UNROLL' onPress={() => this.unrollStudent(section.id)}/> :
+                            <Button
+                                backgroundColor='#66BB6A'
+                                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 10}}
+                                leftIcon={{name: 'done'}} title='ENROLL' disabled={section.seats == 0}
+                                onPress={() => this.enrollStudent(section.id)}/>}
                     </Card>
                 ))}
-
             </ScrollView>)
     }
 }
