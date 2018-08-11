@@ -1,7 +1,8 @@
 import 'es6-symbol/implement'
 import React, {Component} from 'react';
 import {Button, FormInput, FormLabel, Header} from 'react-native-elements';
-import {KeyboardAvoidingView, ScrollView, StyleSheet, ToastAndroid, View,} from 'react-native';
+import {Platform, KeyboardAvoidingView, ScrollView, StyleSheet, ToastAndroid, View,} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import StudentService from "../services/StudentService";
 
 const studentService = StudentService.instance;
@@ -20,11 +21,26 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {user: {}};
+        this.state = {user: {}, isLoading: false,};
         this.update = this.update.bind(this);
+        this.selectCategory = this.selectCategory.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
-        // this.validateEmail = this.validateEmail.bind(this);
+        this.validateEmail = this.validateEmail.bind(this);
+        this.validateEmail = this.validateEmail.bind(this);
         this.updateField = this.updateField.bind(this);
+    }
+
+    selectCategory(selectedCategory) {
+        LayoutAnimation.easeInEaseOut();
+        this.setState({
+            selectedCategory,
+            isLoading: false,
+        });
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
     getUserDetails() {
@@ -50,10 +66,14 @@ export default class Profile extends Component {
 
     update() {
         const user = this.state.user;
+        this.setState({isLoading: true});
+        console.log(this.validateEmail(user.email));
         if (user.password.length < 1)
             alert("Please enter valid password");
         else if (user.password !== user.passwordConfirmation)
             alert("Password does not match");
+        else if (!this.validateEmail(user.email))
+            alert("Please enter valid email");
         else {
             studentService.updateProfile(user)
                 .then((user) => {
@@ -63,6 +83,7 @@ export default class Profile extends Component {
                     ToastAndroid.show('User details successfully updated.', ToastAndroid.SHORT)
                 });
         }
+        this.setState({isLoading: false});
     }
 
     render() {
@@ -79,7 +100,11 @@ export default class Profile extends Component {
         } = this.state.user;
 
         return (
-            <ScrollView>
+            <KeyboardAwareScrollView enableOnAndroid
+                                     enableAutomaticScroll
+                                     keyboardOpeningTime={0}
+                                     extraHeight={Platform.select({ android: 200 })}
+                                     stickyHeaderIndices={[1]}>
                 <Header
                     outerContainerStyles={{backgroundColor: '#546E7A', position: 'relative'}}
                     leftComponent={{
@@ -89,152 +114,151 @@ export default class Profile extends Component {
                     }}
                     centerComponent={{text: 'PROFILE', style: {color: 'black'}}}
                 />
-                <KeyboardAvoidingView behavior='position'>
-                    <View style={styles.formContainer}>
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            User Name
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={username}
-                            keyboardAppearance='light'
-                            autoFocus={false}
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            inputStyle={{marginLeft: 10}}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            editable={false}
-                            style={styles.input}
-                            placeholder={'Username'}
+
+                <View style={styles.formContainer}>
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        User Name
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={username}
+                        keyboardAppearance='light'
+                        autoFocus={false}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        inputStyle={{marginLeft: 10}}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        editable={false}
+                        style={styles.input}
+                        placeholder={'Username'}
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        Password
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={password}
+                        keyboardAppearance='light'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        returnKeyType='next'
+                        blurOnSubmit={true}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        inputStyle={{marginLeft: 10}}
+                        placeholder={'Password'}
+                        ref={input => this.passwordInput = input}
+                        onSubmitEditing={() => this.confirmationInput.focus()}
+                        onChangeText={(password) => this.updateField("password", password)}
+                        style={styles.input}
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        Password Verification
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={passwordConfirmation}
+                        secureTextEntry={true}
+                        keyboardAppearance='light'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType='default'
+                        returnKeyType={'done'}
+                        blurOnSubmit={true}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        inputStyle={{marginLeft: 10}}
+                        placeholder={'Confirm password'}
+                        ref={input => this.confirmationInput = input}
+                        onSubmitEditing={this.signUp}
+                        onChangeText={passwordConfirmation => this.updateField("passwordConfirmation", passwordConfirmation)}
+                        style={styles.input}
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        Email
+                    </FormLabel>
+                    <FormInput
+                        refInput={input => (this.emailInput = input)}
+                        icon="envelope"
+                        defaultValue={email}
+                        onChangeText={email => this.updateField("email", email)}
+                        placeholder="Email"
+                        inputStyle={{marginLeft: 10}}
+                        keyboardType="email-address"
+                        returnKeyType="next"
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        First Name
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={this.state.user.firstName}
+                        keyboardAppearance='light'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType='default'
+                        returnKeyType={'done'}
+                        blurOnSubmit={true}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        inputStyle={{marginLeft: 10}}
+                        placeholder={'First name'}
+                        ref={input => this.confirmationInput = input}
+                        onChangeText={firstName => this.updateField("firstName", firstName)}
+                        style={styles.input}
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        Last Name
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={lastName}
+                        keyboardAppearance='light'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType='default'
+                        returnKeyType={'done'}
+                        blurOnSubmit={true}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        inputStyle={{marginLeft: 10}}
+                        placeholder={'Last name'}
+                        ref={input => this.confirmationInput = input}
+                        onChangeText={lastName => this.updateField("lastName", lastName)}
+                        style={styles.input}
+                    />
+                    <FormLabel
+                        labelStyle={{textAlign: 'left'}}>
+                        Phone
+                    </FormLabel>
+                    <FormInput
+                        defaultValue={phone}
+                        keyboardAppearance='light'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType='default'
+                        returnKeyType={'done'}
+                        blurOnSubmit={true}
+                        containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
+                        inputStyle={{marginLeft: 10}}
+                        placeholder={'Phone'}
+                        ref={input => this.confirmationInput = input}
+                        onChangeText={phone => this.updateField("phone", phone)}
+                        style={styles.input}
+                    />
+                    <View style={{alignItems: 'center'}}>
+                        <Button
+                            leftIcon={{name: 'build'}}
+                            buttonStyle={styles.profileButton}
+                            containerStyle={{marginTop: 32, flex: 0}}
+                            activeOpacity={0.8}
+                            title='UPDATE'
+                            onPress={this.update}
+                            titleStyle={styles.profileTextButton}
+                            loading={isLoading}
+                            disabled={isLoading}
                         />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            Password
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={password}
-                            keyboardAppearance='light'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            secureTextEntry={true}
-                            returnKeyType='next'
-                            blurOnSubmit={true}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            inputStyle={{marginLeft: 10}}
-                            placeholder={'Password'}
-                            ref={input => this.passwordInput = input}
-                            onSubmitEditing={() => this.confirmationInput.focus()}
-                            onChangeText={(password) => this.updateField("password", password)}
-                            style={styles.input}
-                        />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            Password Verification
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={passwordConfirmation}
-                            secureTextEntry={true}
-                            keyboardAppearance='light'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            keyboardType='default'
-                            returnKeyType={'done'}
-                            blurOnSubmit={true}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            inputStyle={{marginLeft: 10}}
-                            placeholder={'Confirm password'}
-                            ref={input => this.confirmationInput = input}
-                            onSubmitEditing={this.signUp}
-                            onChangeText={passwordConfirmation => this.updateField("passwordConfirmation", passwordConfirmation)}
-                            style={styles.input}
-                        />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            Email
-                        </FormLabel>
-                        <FormInput
-                            refInput={input => (this.emailInput = input)}
-                            icon="envelope"
-                            defaultValue={email}
-                            onChangeText={email => this.setState({email})}
-                            placeholder="Email"
-                            inputStyle={{marginLeft: 10}}
-                            keyboardType="email-address"
-                            returnKeyType="next"
-                        />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            First Name
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={this.state.user.firstName}
-                            keyboardAppearance='light'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            keyboardType='default'
-                            returnKeyType={'done'}
-                            blurOnSubmit={true}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            inputStyle={{marginLeft: 10}}
-                            placeholder={'First name'}
-                            ref={input => this.confirmationInput = input}
-                            onChangeText={firstName => this.updateField("firstName", firstName)}
-                            style={styles.input}
-                        />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            Last Name
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={lastName}
-                            keyboardAppearance='light'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            keyboardType='default'
-                            returnKeyType={'done'}
-                            blurOnSubmit={true}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            inputStyle={{marginLeft: 10}}
-                            placeholder={'Last name'}
-                            ref={input => this.confirmationInput = input}
-                            onChangeText={lastName => this.updateField("lastName", lastName)}
-                            style={styles.input}
-                        />
-                        <FormLabel
-                            labelStyle={{textAlign: 'left'}}>
-                            Phone
-                        </FormLabel>
-                        <FormInput
-                            defaultValue={phone}
-                            keyboardAppearance='light'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            keyboardType='default'
-                            returnKeyType={'done'}
-                            blurOnSubmit={true}
-                            containerStyle={{borderBottomColor: 'rgba(0, 0, 0, 0.38)'}}
-                            inputStyle={{marginLeft: 10}}
-                            placeholder={'Phone'}
-                            ref={input => this.confirmationInput = input}
-                            onChangeText={phone => this.updateField("phone", phone)}
-                            style={styles.input}
-                        />
-                        <View style={{alignItems: 'center'}}>
-                            <Button
-                                leftIcon={{name: 'build'}}
-                                buttonStyle={styles.profileButton}
-                                containerStyle={{marginTop: 32, flex: 0}}
-                                activeOpacity={0.8}
-                                title='UPDATE'
-                                onPress={this.update}
-                                titleStyle={styles.profileTextButton}
-                                loading={isLoading}
-                                disabled={isLoading}
-                            />
-                        </View>
                     </View>
-                </KeyboardAvoidingView>
-            </ScrollView>
+                </View>
+            </KeyboardAwareScrollView>
         );
     }
 }
