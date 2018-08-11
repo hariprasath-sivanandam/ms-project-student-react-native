@@ -1,7 +1,7 @@
 import 'es6-symbol/implement'
 import React, {Component} from 'react';
 import {Button, FormInput, FormLabel, Header} from 'react-native-elements';
-import {Platform, KeyboardAvoidingView, ScrollView, StyleSheet, ToastAndroid, View,} from 'react-native';
+import {Platform, StyleSheet, ToastAndroid, View,} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import StudentService from "../services/StudentService";
 
@@ -66,7 +66,6 @@ export default class Profile extends Component {
 
     update() {
         const user = this.state.user;
-        this.setState({isLoading: true});
         console.log(this.validateEmail(user.email));
         if (user.password.length < 1)
             alert("Please enter valid password");
@@ -83,13 +82,11 @@ export default class Profile extends Component {
                     ToastAndroid.show('User details successfully updated.', ToastAndroid.SHORT)
                 });
         }
-        this.setState({isLoading: false});
     }
 
     render() {
         const {
             selectedCategory,
-            isLoading,
             email,
             password,
             username,
@@ -98,13 +95,13 @@ export default class Profile extends Component {
             phone,
             passwordConfirmation,
         } = this.state.user;
-
         return (
             <KeyboardAwareScrollView enableOnAndroid
                                      enableAutomaticScroll
                                      keyboardOpeningTime={0}
-                                     extraHeight={Platform.select({ android: 200 })}
-                                     stickyHeaderIndices={[1]}>
+                                     extraHeight={Platform.select({android: 200})}
+            >
+
                 <Header
                     outerContainerStyles={{backgroundColor: '#546E7A', position: 'relative'}}
                     leftComponent={{
@@ -253,8 +250,6 @@ export default class Profile extends Component {
                             title='UPDATE'
                             onPress={this.update}
                             titleStyle={styles.profileTextButton}
-                            loading={isLoading}
-                            disabled={isLoading}
                         />
                     </View>
                 </View>
